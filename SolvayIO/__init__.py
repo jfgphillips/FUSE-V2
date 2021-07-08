@@ -1,1 +1,1 @@
-__all__ = ['calciner', 'ammoniaRecoveryTower', 'ammoniaSaturator', 'brine', 'calciner', 'coke', 'filter', 'limeKiln', 'limestone', 'slacker', 'solvayTower']
+__all__ = ['calciner', 'ammoniaRecoveryTower', 'ammoniaSaturator','ammonia', 'brine', 'calciner', 'coke', 'filter', 'limeKiln', 'limestone', 'slacker', 'solvayTower']

@@ -9,7 +9,7 @@ class slacker_att(object):
         self.time = self.df['value'].loc['residence time']
         return
 
-def reaction(CaO, water, YIELD):
+def reaction(CaO, water):
     """
     CaO + H2O --> Ca(OH)2
     :param YIELD:

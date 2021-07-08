@@ -20,7 +20,7 @@ def reaction(saturated_soln, sum_CO_2):
     YIELD = 1
     NaCl = saturated_soln["NaCl"]
     NH3 = saturated_soln["NH3"]
-    H2O = saturated_soln["H2O"]
+    #  H2O = saturated_soln["H2O"] TODO: implement a water value into saturated_soln
     limiting_reagent = NaCl
     reacted_solution = {"NaHCO3": limiting_reagent * YIELD, "NH4Cl": limiting_reagent * YIELD}
 
