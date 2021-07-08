@@ -1,5 +1,13 @@
-import numpy as np
-from SolvayIO.machinesIO.solvayTower import *
+import pandas as pd
+
+
+class solvayTower_att(object):
+    def __init__(self):
+        self.df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/solvay_attributes.xlsx', sheet_name="solvay tower", skiprows=1)
+        self.df.set_index('key', inplace=True)
+        self.temperature = self.df['value'].loc['temperature']
+        self.time = self.df['value'].loc['residence time']
+        return
 
 def reaction(saturated_soln, sum_CO_2):
     """

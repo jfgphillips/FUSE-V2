@@ -1,6 +1,13 @@
-import numpy as np
-from SolvayIO.machinesIO.ammoniaRecoveryTower import *
+import pandas as pd
 
+
+class ammoniaRecTower_att(object):
+    def __init__(self):
+        self.df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/solvay_attributes.xlsx', sheet_name="ammonia recovery tower", skiprows=1)
+        self.df.set_index('key', inplace=True)
+        self.temperature = self.df['value'].loc['temperature']
+        self.time = self.df['value'].loc['residence time']
+        return
 
 def reaction(slacked_lime, ammonium_chloride):
     """
@@ -22,5 +29,3 @@ def reaction(slacked_lime, ammonium_chloride):
 def qMachine(machine_properties):
     energyConsumption = 100  #kW
     return energyConsumption
-
-

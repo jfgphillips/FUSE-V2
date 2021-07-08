@@ -40,19 +40,17 @@ def batchReactor(reaction_temperature, reaction_time, surface_area,thermal_condu
     k = thermal_conductivity  # W/(m*K)
     x = wall_thickness  # m
 
-    Qreactor = (k*A*t(T-25))/x  #Whr
-    qReaction = Qreactor/mass_reactants #Whr/gram
+    qReactor = (k*A*t*T)/x  #Whr
+    qReaction = qReactor/mass_reactants #Whr/gram
 
-    return qReaction
+    return qReactor, qReaction
 
-def tubeFurnace(reaction_temperature,reaction_time, reactor_diameter, reactor_length, weighted_av_density): #TODO: change reactor diameter and lenghh to volume
+def tubeFurnace(reaction_temperature,reaction_time, reactor_volume, weighted_av_density): #TODO: change reactor diameter and lenghh to volume
     critical_point = 1200 # degrees celcius
     capacity = 0.5  # %
     T = reaction_temperature  # degrees celcius
     t = reaction_time  # hours
-    r = reactor_diameter/2  # cm
-    l = reactor_length  # cm
-    V = np.pi * (r ** 2) * l  # cm
+    V = reactor_volume  # cm^3
     reactant_volume = V * capacity  # cm
     wad = weighted_av_density  # cm^(-3)
     mass_reactants = reactant_volume * wad  # g
@@ -63,7 +61,7 @@ def tubeFurnace(reaction_temperature,reaction_time, reactor_diameter, reactor_le
     qReactor = (P * t) # Whr
     qReaction = qReactor/mass_reactants  # Whr/gram
 
-    return qReaction
+    return qReactor, qReaction
 
 
 
