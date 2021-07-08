@@ -23,7 +23,7 @@ def reaction(sodium_bicarbonate):
     Na2CO3 = sodium_bicarbonate / 2 * YIELD
     water = sodium_bicarbonate / 2 * YIELD
     cacliner_CO2 = sodium_bicarbonate / 2 * YIELD
-    products = {"Na2CO3":Na2CO3, "water":water,"cacliner_CO2":cacliner_CO2}
+    products = {"Na2CO3":Na2CO3, "water": water,"cacliner_CO2":cacliner_CO2}
 
     return products
 

@@ -21,7 +21,12 @@ def reaction(saturated_soln, sum_CO_2):
     NaCl = saturated_soln["NaCl"]
     NH3 = saturated_soln["NH3"]
     #  H2O = saturated_soln["H2O"] TODO: implement a water value into saturated_soln
-    limiting_reagent = NaCl
+    if NaCl > NH3 and sum_CO_2 > NH3:
+        limiting_reagent = NH3
+    elif NH3 > NaCl and sum_CO_2 > NaCl:
+        limiting_reagent = NaCl
+    else:
+        limiting_reagent = sum_CO_2
     reacted_solution = {"NaHCO3": limiting_reagent * YIELD, "NH4Cl": limiting_reagent * YIELD}
 
     return reacted_solution

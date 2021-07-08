@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 class ammoniaRecTower_att(object):
@@ -18,8 +19,11 @@ def reaction(slacked_lime, ammonium_chloride):
     :return:
     """
     YIELD = 1
+    if slacked_lime >= ammonium_chloride:
+        limiting_reagent = ammonium_chloride/2
+    elif ammonium_chloride > slacked_lime:
+        limiting_reagent = slacked_lime
 
-    limiting_reagent = ammonium_chloride/2
     cal_chloride = limiting_reagent * 1 * YIELD
     rec_ammonia = limiting_reagent * 2 * YIELD
     recycled_water = limiting_reagent * 2 * YIELD

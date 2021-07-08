@@ -18,8 +18,12 @@ def reaction(CaO, water):
     :return:
     """
     YIELD = 1
+    if CaO > water:
+        limiting_reagent = water
+    elif water > CaO:
+        limiting_reagent = CaO
 
-    slack_lime = CaO * YIELD
+    slack_lime = limiting_reagent * YIELD
     return slack_lime
 
 

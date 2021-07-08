@@ -8,5 +8,4 @@ class ammonia_att(object):
         self.df.set_index('key', inplace=True)
         self.NH3_mol = self.df['value'].loc['mass']/Formula("NH3").mass
         self.NH3_price = self.df['value'].loc['price']
-        print(self.NH3_mol)
         return
