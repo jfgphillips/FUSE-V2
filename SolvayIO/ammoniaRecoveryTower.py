@@ -24,7 +24,9 @@ def reaction(slacked_lime, ammonium_chloride):
     rec_ammonia = limiting_reagent * 2 * YIELD
     recycled_water = limiting_reagent * 2 * YIELD
 
-    return cal_chloride, rec_ammonia, recycled_water
+    products = {"CaCl2": cal_chloride,"NH3": rec_ammonia, "H2O": recycled_water}
+
+    return products
 
 def qMachine(machine_properties):
     energyConsumption = 100  #kW

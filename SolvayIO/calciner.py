@@ -23,8 +23,9 @@ def reaction(sodium_bicarbonate):
     Na2CO3 = sodium_bicarbonate / 2 * YIELD
     water = sodium_bicarbonate / 2 * YIELD
     cacliner_CO2 = sodium_bicarbonate / 2 * YIELD
+    products = {"Na2CO3":Na2CO3, "water":water,"cacliner_CO2":cacliner_CO2}
 
-    return Na2CO3, water, cacliner_CO2
+    return products
 
 
 def qMachine(machine_properties):
