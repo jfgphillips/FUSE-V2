@@ -1,15 +1,17 @@
 from molmass import Formula
 
+
 def solidMol(formula, mass):
     """
     solid conversion from mass to mol
-    :param formula: strng formula
+    :param formula: string formula
     :param mass: units grams
     :return: moles units mol
     """
     mr = Formula(formula).mass
     mol = mass/mr
     return mol
+
 
 def solidMass(formula, mol):
     """
@@ -22,6 +24,7 @@ def solidMass(formula, mol):
     mass = mr*mol
     return mass
 
+
 def liqMol(concentration, volume):
     """
     liquid conversion from concentration to mol
@@ -31,6 +34,7 @@ def liqMol(concentration, volume):
     """
     mol = (concentration * volume)/1000
     return mol
+
 
 def liqConcentration(mol, volume):
     """
@@ -42,6 +46,7 @@ def liqConcentration(mol, volume):
     concentration = (mol * 1000)/volume
     return concentration
 
+
 def liqVolume(mol, concentration):
     """
     liquid conversion from mol to volume
@@ -51,4 +56,3 @@ def liqVolume(mol, concentration):
     """
     volume = (mol * 1000)/concentration
     return volume
-
