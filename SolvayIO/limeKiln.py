@@ -10,6 +10,7 @@ class limeKiln_att(object):
         self.time = self.df['value'].loc['residence time']
         return
 
+
 def reaction(limestone):
     """
     CaCO3 --> CaO + CO2
@@ -26,6 +27,21 @@ def reaction(limestone):
     products = {"CaO": quick_lime, "kiln_CO_2": CO_2}
 
     return products
+
+
+def revReaction(calcium_oxide):
+    """
+    CaCO3 <-- CaO + CO2
+    :param calcium_oxide:
+    :return:
+    """
+    YIELD = 1
+    CaCO3 = calcium_oxide * YIELD
+    CO2 = calcium_oxide * YIELD
+    req_reactants = {"CaCO3": CaCO3}
+    byproducts = {"CO2": CO2}
+    return req_reactants, byproducts
+
 
 
 def qMachine(machine_properties):
