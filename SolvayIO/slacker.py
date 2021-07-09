@@ -18,10 +18,25 @@ def reaction(CaO, water):
     :return:
     """
     YIELD = 1
+    if CaO > water:
+        limiting_reagent = water
+    elif water > CaO:
+        limiting_reagent = CaO
 
-    slack_lime = CaO * YIELD
-    return slack_lime
+    products = {"Ca(OH)2":limiting_reagent * YIELD}
+    return products
 
+def revReaction(slacked_lime):
+    """
+    CaO + H2O <-- Ca(OH)2
+    :param slacked_lime:
+    :return:
+    """
+    YIELD = 1
+    CaO = slacked_lime * YIELD
+    H20 = slacked_lime * YIELD
+    req_reactants = {"CaO": CaO, "H20": H20}
+    return req_reactants
 
 def qMachine(machine_properties):
     energyConsumption = 100  #kW

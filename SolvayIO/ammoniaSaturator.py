@@ -21,7 +21,7 @@ def reaction(NaCl, ammonia):
     :return:
     """
     YIELD = 1
-    saturated_soln = {"NaCl":NaCl, "NH3": ammonia}
+    saturated_soln = {"NaCl":NaCl*YIELD, "NH3": ammonia*YIELD}
 
     return saturated_soln
 

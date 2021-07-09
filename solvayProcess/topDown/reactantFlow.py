@@ -15,8 +15,8 @@ if __name__ == '__main__':  # TODO: implement this for all the machines, find an
     ammonium_chloride, sodium_bicarbonate = filter.reaction(solvayTower_products)
     calciner_products = calciner.reaction(sodium_bicarbonate)
     print(calciner_products)
-    slacked_lime = slacker.reaction(kiln_products["CaO"],myWater)
-    ammoniaRecoveryTower_products = ammoniaRecoveryTower.reaction(slacked_lime,ammonium_chloride)
+    slacked_lime = slacker.reaction(kiln_products["CaO"], myWater)
+    ammoniaRecoveryTower_products = ammoniaRecoveryTower.reaction(slacked_lime["Ca(OH)2"], ammonium_chloride)
     print(ammoniaRecoveryTower_products)
 
 
