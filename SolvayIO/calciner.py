@@ -27,6 +27,18 @@ def reaction(sodium_bicarbonate):
 
     return products
 
+def revReaction(soda_ash):
+    """
+    2NaHCO3 <-- Na2CO3 + H20 + CO2
+    :param soda_ash:
+    :return:
+    """
+    YIELD = 1
+    sodium_bicarbonate = soda_ash * 2 * YIELD
+    
+    return sodium_bicarbonate
+
+
 
 def qMachine(machine_properties):
     density_NaHCO3 = 2.2
