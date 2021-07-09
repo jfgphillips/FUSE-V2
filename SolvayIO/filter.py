@@ -25,3 +25,4 @@ def reaction(reacted_solution):
 def qMachine(machine_properties):
     energyConsumption = 1  #kW
     return energyConsumption
+

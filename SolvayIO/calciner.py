@@ -35,7 +35,7 @@ def revReaction(soda_ash):
     """
     YIELD = 1
     sodium_bicarbonate = soda_ash * 2 * YIELD
-    
+
     return sodium_bicarbonate
 
 

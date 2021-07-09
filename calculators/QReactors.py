@@ -75,7 +75,7 @@ def tubeFurnace(reaction_temperature,reaction_time, reactor_volume, weighted_av_
     return qReactor, qReaction
 
 
-def CSTR()  # TODO: implement this using: https://en.wikipedia.org/wiki/Continuous_stirred-tank_reactor
+def CSTR():  # TODO: implement this using: https://en.wikipedia.org/wiki/Continuous_stirred-tank_reactor
 
     return np.nan
 

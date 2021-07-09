@@ -19,4 +19,3 @@ def machine_output_calc(soda_ash_tpy, mining_package):
     ore_and_rock_tph_per_miner = ore_and_rock_tpm_per_miner/PRODUCTION_HRS_wk
     print("The output of each mining package per hour is: ", ore_and_rock_tph_per_miner,'tph \n',"The output of each mining package per week is: ", ore_and_rock_tph_per_miner*PRODUCTION_HRS_wk, 'tpwk')
     return ore_and_rock_tph_per_miner
-
