@@ -66,6 +66,8 @@ an excel file with sheet names for various initialising steps
 #### 1.4.2 from lake deposits
 #### 1.4.3 from desalination waste
 
+### 1.5 geothermal_extraction.xlsx # TODO: implement this (Chantal)
+
 ### 1.x # TODO: any more methods?
 
 ### 1.5 transportation_methods.xlsx #TODO implement this (adrian)
@@ -77,13 +79,19 @@ an excel file with sheet names for various initialising steps
 
 ## 3 Calculators
 ### 3.1 kilowat hours calculators
-#### 3.1.1 QReactors
-#### 3.1.2 QMachines
+#### 3.1.1 QReactors.py
+#### 3.1.2 QMachines.py
 __methods__
 1. haulage vehicle
   applies to shuttle cars, transportation vehicles, LHD vehicles
 2. belt conveyor 
   applies to all belt conveyors with inclines and declines
+### 3.2 optimal mine practices
+#### 3.2.1 drumHoist.py
+#### 3.2.2 taylorsLaw.py
+
+### 3.3 unitConversions.py
+this python file contains all required converstions for the overall program
 
 
 
