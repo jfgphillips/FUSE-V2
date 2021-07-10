@@ -72,26 +72,97 @@ an excel file with sheet names for various initialising steps
 
 ### 1.x # TODO: any more methods?
 
-## 2 IO handling
-### 2.1 trona mining
-### 2.1.1 trona refining 
-### 2.2 solvay process
+## 2 IO handling packages
+### 2.1 MineIO
+#### 2.1.1 underground
+each machine has a self initiator which reads from the data files
+the important thing to note is that object attributes are degenerate
+this is for when you want to find something e.g. roofBolter_att.power 
+is the same as shuttleCar_att.power; differentiated by their prefix
+#### 2.1.2 open pit # TODO: Implement this if required
 
-## 3 Calculators
+### 2.2 SolvayIO
+• each machine has self initiator which reads from the data files
+
+• each machine has a forward reaction, and a reverse reaction (forward reaction is to 
+tune the machines with existing data). reverse reaction will be used to determine how many machines 
+are required for production requirements
+
+• each machine has a qmachine method in which the user decides what type of reactor is used
+and in the data file specifies the parameters required for the calculation performs calculation using
+calculators.QReactors.tubeFurnace(parameters) for example
+
+### 2.3 solutionIO
+### 2.4 brineIO
+### 2.5 geothermalIO
+### 2.6 transportationIO
+
+
+## 3 Calculator package
 ### 3.1 kilowat hours calculators
 #### 3.1.1 QReactors.py
+__methods__
+1. fixed bed reactor
+
+    requirements:
+
+        reaction temperature
+        reaction time
+        surface area
+        thermal conductivity
+        wall_thickness
+2. batch reactor
+   
+   requirements:
+   
+       reaction temperature
+       reaction time
+       surface area
+       thermal conductivity 
+       wall thickness
+       liq density
+3. tube furnace
+   
+    requirements:
+
+        reaction temperature
+        reaction time
+        reactor volume
+        weighted av density
+
+4. continuous stirred tank reactor
 #### 3.1.2 QMachines.py
 __methods__
 1. haulage vehicle
-  applies to shuttle cars, transportation vehicles, LHD vehicles
+   applies to shuttle cars, transportation vehicles, LHD vehicles
+   
+   requirements:
+   
+       motor_kW
+       haulage running load
+       haulage load rating
+       unit run time
+       per unit time
+       operating hours
+   
 2. belt conveyor 
   applies to all belt conveyors with inclines and declines
+   
+   requirements:
+   
+       belt speed
+       belt length
+       gradient
+       conveyor output
+       drive train efficicency
+
+``
 ### 3.2 optimal mine practices
 #### 3.2.1 drumHoist.py
 #### 3.2.2 taylorsLaw.py
 
 ### 3.3 unitConversions.py
-this python file contains all required converstions for the overall program
+this python file contains all required conversions for the overall program
 
 
 
