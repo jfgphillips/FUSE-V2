@@ -45,7 +45,18 @@ def batchReactor(reaction_temperature, reaction_time, surface_area,thermal_condu
 
     return qReactor, qReaction
 
-def tubeFurnace(reaction_temperature,reaction_time, reactor_volume, weighted_av_density): #TODO: change reactor diameter and lenghh to volume
+def tubeFurnace(reaction_temperature,reaction_time, reactor_volume, weighted_av_density):
+    """
+
+    :param reaction_temperature: degrees celcius
+    :param reaction_time: time in hours
+    :param reactor_volume: volume in cm^3
+    :param weighted_av_density: weighted_av_density in g cm^(-3)
+    :return:
+    q reactor = power in Whrs
+    q reaction = power in whrs per gram
+
+    """
     critical_point = 1200 # degrees celcius
     capacity = 0.5  # %
     T = reaction_temperature  # degrees celcius
@@ -64,6 +75,9 @@ def tubeFurnace(reaction_temperature,reaction_time, reactor_volume, weighted_av_
     return qReactor, qReaction
 
 
+def CSTR():  # TODO: implement this using: https://en.wikipedia.org/wiki/Continuous_stirred-tank_reactor
+
+    return np.nan
 
 
 
