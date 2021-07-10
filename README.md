@@ -68,9 +68,9 @@ an excel file with sheet names for various initialising steps
 
 ### 1.5 geothermal_extraction.xlsx # TODO: implement this (Chantal)
 
-### 1.x # TODO: any more methods?
+### 1.6 transportation_methods.xlsx #TODO implement this (adrian)
 
-### 1.5 transportation_methods.xlsx #TODO implement this (adrian)
+### 1.x # TODO: any more methods?
 
 ## 2 IO handling
 ### 2.1 trona mining
