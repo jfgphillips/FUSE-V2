@@ -9,3 +9,4 @@ class roofBolter_att(object):
         self.power = self.df['value'].loc['power']
         self.workers = self.df['value'].loc['workers']
         return
+

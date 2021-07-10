@@ -1,3 +1,4 @@
+import numpy as np
 
 class continuousMiner(object):
     def __init__(self):
@@ -10,3 +11,6 @@ class continuousMiner(object):
         self.power = self.df['value'].loc["power"]
         self.workers = self.df['value'].loc['workers']
         return
+
+def qMachine(machine_properties):
+    return np.nan
