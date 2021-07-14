@@ -1,39 +1,61 @@
 from SolvayIO import *
-from calculators import unitConversions
 
-soda_ash = 1000000  # grams
+import calculators.unitConversions as uC
 
-if __name__ == '__main__':
-    bicarbonate = calciner.revReaction(unitConversions.solidMol("Na2CO3", soda_ash))
+class revReactionFlow:
+    def __init__(self, soda_ash):
+        self.soda_ash = soda_ash
+        self.bicarbonate = calciner.revReaction(uC.solidMol("Na2CO3", self.soda_ash))
+        self.solv_req_reactants, self.solv_byproducts = solvayTower.revReaction(self.bicarbonate)
+        self.amm_req_reactants, self.amm_byproducts, self.waste = ammoniaRecoveryTower.revReaction(
+            self.solv_byproducts["NH4Cl"])
+        self.slaker_req_reactants = slacker.revReaction(self.amm_req_reactants["Ca(OH)2"])
+        self.kiln_req_reactants, self.kiln_byproducts = limeKiln.revReaction(self.slaker_req_reactants["CaO"])
 
-    print("For the production of: ", soda_ash, "g \n",
-          unitConversions.solidMass("NaHCO3", bicarbonate),
-          " g of sodium bicarbonate are required")
+    def step1(self):
+        print_format = ("For the production of: ", self.soda_ash, "g \n",
+              uC.solidMass("NaHCO3", self.bicarbonate),
+              " g of sodium bicarbonate are required")
+        return print_format
 
-    solv_req_reactants, solv_byproducts = solvayTower.revReaction(bicarbonate)
+    def step2(self):
+        print("to produce sodium bicarbonate (", uC.solidMass("NaHCO3", self.bicarbonate), ") g \n",
+              "req_reactants are (mol): ", self.solv_req_reactants, '\n',
+              "byproducts are (mol): ", self.solv_byproducts)
+        return
 
-    print("to produce sodium bicarbonate (", unitConversions.solidMass("NaHCO3", bicarbonate), ") g \n",
-          "req_reactants are (mol): ", solv_req_reactants, '\n',
-          "byproducts are (mol): ", solv_byproducts)
+    def step3(self):
+        print("to recycle ammoia (", uC.solidMass("NH4Cl", self.solv_byproducts["NH4Cl"]), ") g NH4Cl \n",
+              "req_reactants are (mol): ", self.amm_req_reactants, '\n',
+              "byproducts are (mol): ", self.amm_byproducts, "\n",
+              "waste are (mol): ", self.waste)
+        return
 
-    amm_req_reactants, amm_byproducts, waste = ammoniaRecoveryTower.revReaction(solv_byproducts["NH4Cl"])
+    def step4(self):
+        print("to recycle ammonia (", uC.solidMass("Ca(OH)2", self.amm_req_reactants["Ca(OH)2"]),
+              ") g Ca(OH)2 \n",
+              "req_reactants are (mol): ", self.slaker_req_reactants)
+        return
 
-    print("to recycle ammoia (", unitConversions.solidMass("NH4Cl", solv_byproducts["NH4Cl"]), ") g NH4Cl \n",
-          "req_reactants are (mol): ", amm_req_reactants, '\n',
-          "byproducts are (mol): ", amm_byproducts, "\n",
-          "waste are (mol): ", waste)
+    def step5(self):
+        parameters = {"CaO": uC.solidMass("CaO", self.slaker_req_reactants["CaO"]),
+                      "CaCO3": uC.solidMass("CaCO3", self.kiln_req_reactants["CaCO3"]),
+                      "byproducts": self.kiln_byproducts}
+        print_format = f"in order to produce the required mass of calcium oxide ({parameters['CaO']} g) \n" \
+                       f"limestone: {parameters['CaCO3']} g\n" \
+                       f"the byproducts were: {parameters['byproducts']}"
+        return print_format
 
-    slaker_req_reactants = slacker.revReaction(amm_req_reactants["Ca(OH)2"])
-    print("to recycle ammonia (", unitConversions.solidMass("Ca(OH)2", amm_req_reactants["Ca(OH)2"]), ") g Ca(OH)2 \n",
-          "req_reactants are (mol): ", slaker_req_reactants)
+    def requiredreactants(self):
+        parameters = {"soda_ash": uC.tonnes(self.soda_ash),
+                      "NaCl": uC.tonnes(uC.solidMass("NaCl", self.solv_req_reactants["NaCl"])),
+                      "CaCO3": uC.tonnes(uC.solidMass("CaCO3", self.kiln_req_reactants["CaCO3"])),
+                      "CaCl2": uC.tonnes(uC.solidMass("CaCl2", self.waste["CaCl2"]))}
 
-    kiln_req_reactants, kiln_byproducts = limeKiln.revReaction(slaker_req_reactants["CaO"])
-    print("to produce (", unitConversions.solidMass("CaO", slaker_req_reactants["CaO"]), ") g CaO \n",
-          "req_limestone are : ", unitConversions.solidMass("CaCO3", kiln_req_reactants["CaCO3"]), 'g CaCO3\n'
-          "byproducts are (mol): ", kiln_byproducts)
+        print_format = f"the total required starting materials to produce {parameters['soda_ash']} tonnes of soda ash\n"\
+                       f" sodium chloride: {parameters['NaCl']} Tonnes\n" \
+                       f" Limestone: {parameters['CaCO3']} Tonnes\n" \
+                       f" waste produced \n" \
+                       f" calcium chloride: {parameters['CaCl2']} Tonnes"
+        return print_format
 
-    print("\n",
-          "TOTAL REQ STARTING MATERIALS TO PRODUCE:", unitConversions.tonnes(soda_ash), "tonnes of soda ash \n",
-          "NaCl: ", unitConversions.tonnes(unitConversions.solidMass("NaCl", solv_req_reactants["NaCl"])), "tonnes \n",
-          "CaCO3: ", unitConversions.tonnes(unitConversions.solidMass("CaCO3", kiln_req_reactants["CaCO3"])), "tonnes \n",
-          "WASTE PRODUCED: ", unitConversions.tonnes(unitConversions.solidMass("CaCl2", waste["CaCl2"])), "tonnes calcium chloride \n")
