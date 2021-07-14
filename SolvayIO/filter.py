@@ -9,6 +9,7 @@ class filter_att(object):
         self.time = self.df['value'].loc['residence time']
         return
 
+
 def reaction(reacted_solution):
     """
     :param reacted_solution: dict containing product

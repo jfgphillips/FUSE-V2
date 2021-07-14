@@ -57,3 +57,11 @@ def liqVolume(mol, concentration):
     volume = (mol * 1000)/concentration
     return volume
 
+def tonnes(grams):
+    """
+    grams to tonne conversion
+    :param grams: units grams
+    :return: metric tonnes
+    """
+    t = grams * 1*10**(-6)
+    return t
