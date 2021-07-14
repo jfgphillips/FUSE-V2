@@ -16,16 +16,19 @@ def reaction(slacked_lime, ammonium_chloride):
     :param slacked_lime: concentration of slacked lime in solution
     :param ammonium_chloride: concentration of ammonium chloride
     :param YIELD: efficiency of the step
+    AMMONIARECOVERY source: https://chemicalengineeringfacts.wordpress.com/2017/01/17/chemical-technology/
+
     :return:
     """
     YIELD = 1
+    AMMONIARECOVERY = 0.98
     if slacked_lime >= ammonium_chloride:
         limiting_reagent = ammonium_chloride/2
     elif ammonium_chloride > slacked_lime:
         limiting_reagent = slacked_lime
 
     cal_chloride = limiting_reagent * 1 * YIELD
-    rec_ammonia = limiting_reagent * 2 * YIELD
+    rec_ammonia = limiting_reagent * 2 * AMMONIARECOVERY
     recycled_water = limiting_reagent * 2 * YIELD
 
     products = {"NH3": rec_ammonia, "H2O": recycled_water}

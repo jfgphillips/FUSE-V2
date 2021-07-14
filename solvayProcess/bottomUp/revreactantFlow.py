@@ -1,7 +1,8 @@
 from SolvayIO import *
 from calculators import unitConversions
 
-soda_ash = 1000000000  # grams
+soda_ash = 1000000  # grams
+
 if __name__ == '__main__':
     bicarbonate = calciner.revReaction(unitConversions.solidMol("Na2CO3", soda_ash))
 
@@ -32,7 +33,7 @@ if __name__ == '__main__':
           "byproducts are (mol): ", kiln_byproducts)
 
     print("\n",
-          "TOTAL REQ STARTING MATERIALS TO PRODUCE:", soda_ash, "grams soda ash \n",
-          "NaCl: ", unitConversions.solidMass("NaCl", solv_req_reactants["NaCl"]), "grams \n",
-          "CaCO3: ", unitConversions.solidMass("CaCO3", kiln_req_reactants["CaCO3"]), "grams \n",
-          "WASTE PRODUCED: ", unitConversions.solidMass("CaCl2", waste["CaCl2"]), "grams calcium chloride \n")
+          "TOTAL REQ STARTING MATERIALS TO PRODUCE:", unitConversions.tonnes(soda_ash), "tonnes of soda ash \n",
+          "NaCl: ", unitConversions.tonnes(unitConversions.solidMass("NaCl", solv_req_reactants["NaCl"])), "tonnes \n",
+          "CaCO3: ", unitConversions.tonnes(unitConversions.solidMass("CaCO3", kiln_req_reactants["CaCO3"])), "tonnes \n",
+          "WASTE PRODUCED: ", unitConversions.tonnes(unitConversions.solidMass("CaCl2", waste["CaCl2"])), "tonnes calcium chloride \n")
