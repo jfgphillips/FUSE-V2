@@ -1,21 +1,20 @@
 import pandas as pd
 import numpy as np
 
-def haulageVehicle(motor_kW, running_load, nameplate_rating, per_unit_run_time, per_unit_time, op_hrs):
+
+def haulageVehicle(motor_kW, running_load, nameplate_rating, utilisation_factor, op_units):
     """
     :param motor_kW: engine horse power
     :param running_load: how much the unit is carrying
     :param nameplate_rating: max operating rating
-    :param per_unit_run_time: how much the unit is being run
-    :param per_unit_time: per specified time (standardised hrs)
-    :param op_hrs: intervals of a day, week or month
+    :param utilisation_factor: utilisation factor
+    :param op_units: intervals of a day, week, month, year
 
     :return: unit_energy_consumption: Energy/month (kW hours)
     """
     # motor_kW = motor_HP * 0.746  # conversion factor HP -> kW
-    load_factor = running_load/nameplate_rating  # what capacity is equipment being used
-    utilisation_factor = per_unit_run_time/per_unit_time
-    unit_energy_consumption = motor_kW * load_factor * utilisation_factor * op_hrs  # standardised value
+    load_factor = running_load / nameplate_rating  # what capacity is equipment being used
+    unit_energy_consumption = motor_kW * load_factor * utilisation_factor * op_units  # standardised value
 
     return unit_energy_consumption
 
@@ -49,10 +48,25 @@ def beltConveyor(belt_speed, belt_length, gradient, conveyor_output, drive_train
 
     return drive_kW
 
+
+def poweredVehicle(motor_kW, utilisation_factor, op_units):
+    """
+
+    :param motor_kW:
+    :param utilisation_factor:
+    :param op_units:
+    :return:
+    """
+    unit_energy_consumption = motor_kW * utilisation_factor * op_units
+
+    return unit_energy_consumption
+
+
 def environment():
     environment_impact = np.nan
     return environment_impact
 
-def miner(motor_kW, rock_hardness): # TODO: adrian implement
+
+def miner(motor_kW, rock_hardness):  # TODO: adrian implement
     miner_kW = np.nan
     return miner_kW

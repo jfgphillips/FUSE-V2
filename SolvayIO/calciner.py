@@ -39,9 +39,8 @@ def revReaction(soda_ash):
     return sodium_bicarbonate
 
 
-
 def qMachine(machine_properties):
     density_NaHCO3 = 2.2
     weighted_av_density = density_NaHCO3
-    energyConsumption = tubeFurnace(machine_properties.temperature,machine_properties.time,machine_properties.volume,weighted_av_density)  # kW
+    energyConsumption = tubeFurnace(machine_properties.temperature,machine_properties.time,machine_properties.volume, weighted_av_density)  # kW
     return energyConsumption
