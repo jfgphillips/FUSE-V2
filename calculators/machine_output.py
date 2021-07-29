@@ -13,9 +13,9 @@ def machine_output_calc(soda_ash_tpy, mining_package, conversion_efficiency, min
     ore_and_rock_tpy = ore_tpy/mineral_grade
     ore_and_rock_tpy_per_miner = ore_and_rock_tpy / mining_package
     ore_and_rock_tpm_per_miner = ore_and_rock_tpy_per_miner / 52
-    print(production_hrs_wk)
+    #print(production_hrs_wk)
     ore_and_rock_tph_per_miner = ore_and_rock_tpm_per_miner / production_hrs_wk
 
 
-    print("The output of each mining package per hour is: ", ore_and_rock_tph_per_miner,'tph \n',"The output of each mining package per week is: ", ore_and_rock_tph_per_miner*production_hrs_wk, 'tpwk')
+    # print("The output of each mining package per hour is: ", ore_and_rock_tph_per_miner,'tph \n',"The output of each mining package per week is: ", ore_and_rock_tph_per_miner*production_hrs_wk, 'tpwk')
     return ore_and_rock_tph_per_miner
