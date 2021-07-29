@@ -13,16 +13,20 @@ class plot:
 
     def emissions_boxplot(self):
         fields = ['miner_emissions', 'support_emissions', 'transportation_emissions']
-        colours = ['red', 'green', 'blue']
+        colours = ['#88CCEE', '#CC6677', '#DDCC77']
         labels = ['miner', 'support', 'transportation']
 
-
-        myplot = self.emissions_data.plot(use_index=True, kind="bar", stacked=True, color=colours, y=fields)
+        myplot = self.emissions_data.plot(use_index=True,
+                                          kind="bar",
+                                          stacked=True,
+                                          color=colours, y=fields)
         myplot.set_ylabel("Emissions (kWhr/year)")
-        myplot.set_xlabel("Mining technique")
+        plt.title("Mining technique")
+        plt.xticks(rotation=0)
+        plt.legend(loc=0)
         plt.show()
 
-        #print(plt.bar(self.emissions_data.index))
+        # print(plt.bar(self.emissions_data.index))
 
         # for idx, name in enumerate(fields):
 
