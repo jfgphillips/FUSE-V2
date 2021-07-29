@@ -65,3 +65,20 @@ def tonnes(grams):
     """
     t = grams * 1*10**(-6)
     return t
+
+def grams(tonnes):
+    """
+    tonnes to grams conversion
+    :param tonnes: unit metric tonnes
+    :return: grams
+    """
+    g = tonnes * 1*10**(6)
+    return g
+
+def kiloWattHours(joules):
+    """
+    :param joules: unit joules
+    :return: kWh (kilowatt hours)
+    """
+    kWh = joules * 1/3600000
+    return(kWh)
