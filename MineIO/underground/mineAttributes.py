@@ -12,9 +12,11 @@ class mine_att(object):
         self.ore_grade = self.df['value'].loc["ore grade"]
         self.ore_density = self.df['value'].loc["location"]
         self.ore_mkt_price = self.df['value'].loc["ore market price"]
+        self.mining_operating = self.df['value'].loc["mining operating"]
         self.mining_usage = self.df['value'].loc["mining operating"]/self.df['value'].loc["period"]
         self.maintenance_usage = self.df['value'].loc['maintenance operating']/self.df['value'].loc['period']
         self.mining_packages = self.df['value'].loc["mining packages"]
+        self.conversion_efficiency = self.df['value'].loc['conversion efficiency']
         return
 
 
