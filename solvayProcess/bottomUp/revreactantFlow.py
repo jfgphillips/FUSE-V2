@@ -11,31 +11,35 @@ class revReactionFlow:
             self.solv_byproducts["NH4Cl"])
         self.slaker_req_reactants = slacker.revReaction(self.amm_req_reactants["Ca(OH)2"])
         self.kiln_req_reactants, self.kiln_byproducts = limeKiln.revReaction(self.slaker_req_reactants["CaO"])
+        print(f'\n\nthis is step 1 \n{self.step1()}\n'
+              f'\n\nthis is step 2 \n{self.step2()}\n'
+              f'\n\nthis is step 3 \n{self.step3()}\n'
+              f'\n\nthis is step 4 \n{self.step4()}\n'
+              f'\n\nthis is step 5 \n{self.step5()}\n'
+              f'\n\nthese are the required reactants \n\n{self.requiredreactants()}')
 
     def step1(self):
-        print_format = ("For the production of: ", self.soda_ash, "g \n",
-              uC.solidMass("NaHCO3", self.bicarbonate),
-              " g of sodium bicarbonate are required")
+        print_format = f"For the production of: {self.soda_ash}g soda ash\n" \
+                       f"{uC.solidMass('NaHCO3', self.bicarbonate)}g of sodium bicarbonate is required"
         return print_format
 
     def step2(self):
-        print("to produce sodium bicarbonate (", uC.solidMass("NaHCO3", self.bicarbonate), ") g \n",
-              "req_reactants are (mol): ", self.solv_req_reactants, '\n',
-              "byproducts are (mol): ", self.solv_byproducts)
-        return
+        print_format = f"to produce sodium bicarbonate {uC.solidMass('NaHCO3', self.bicarbonate)} \n"\
+                       f"req_reactants are (mol): {self.solv_req_reactants} \n" \
+                       f"byproducts are (mol): {self.solv_byproducts}"
+        return print_format
 
     def step3(self):
-        print("to recycle ammoia (", uC.solidMass("NH4Cl", self.solv_byproducts["NH4Cl"]), ") g NH4Cl \n",
-              "req_reactants are (mol): ", self.amm_req_reactants, '\n',
-              "byproducts are (mol): ", self.amm_byproducts, "\n",
-              "waste are (mol): ", self.waste)
-        return
+        print_format = f"to recycle ammoia ({uC.solidMass('NH4Cl', self.solv_byproducts['NH4Cl'])}) g NH4Cl \n" \
+                       f"req_reactants are (mol): {self.amm_req_reactants} \n" \
+                       f"byproducts are (mol): {self.amm_byproducts} \n" \
+                       f"waste was (mol): {self.waste}"
+        return print_format
 
     def step4(self):
-        print("to recycle ammonia (", uC.solidMass("Ca(OH)2", self.amm_req_reactants["Ca(OH)2"]),
-              ") g Ca(OH)2 \n",
-              "req_reactants are (mol): ", self.slaker_req_reactants)
-        return
+        print_format = f"to recycle ammonia ({uC.solidMass('Ca(OH)2', self.amm_req_reactants['Ca(OH)2'])}g Ca(OH)2 \n" \
+                       f"required reactants are (mol): {self.slaker_req_reactants}"
+        return print_format
 
     def step5(self):
         parameters = {"CaO": uC.solidMass("CaO", self.slaker_req_reactants["CaO"]),
@@ -59,3 +63,5 @@ class revReactionFlow:
                        f" calcium chloride: {parameters['CaCl2']} Tonnes"
         return print_format
 
+if __name__ == '__main__':
+    test = revReactionFlow(100000)

@@ -5,12 +5,12 @@ from calculators.QMachines import poweredVehicle
 
 class continuousMiner_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/mine_attributes.xlsx', sheet_name="continuous miner", skiprows=1)
-        self.df.set_index('key', inplace=True)
+        df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/mine_attributes.xlsx', sheet_name="continuous miner", skiprows=1)
+        df.set_index('key', inplace=True)
         # print(self.df.index)
-        self.production_output = self.df['value'].loc["production output"]
-        self.power = self.df['value'].loc["power"]
-        self.workers = self.df['value'].loc['workers']
+        self.production_output = df['value'].loc["production output"]
+        self.power = df['value'].loc["power"]
+        self.workers = df['value'].loc['workers']
         return
 
 

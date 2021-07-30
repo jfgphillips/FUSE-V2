@@ -3,11 +3,11 @@ from calculators.QReactors import tubeFurnace
 
 class calciner_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/solvay_attributes.xlsx', sheet_name="calciner", skiprows=1)
-        self.df.set_index('key', inplace=True)
-        self.temperature = self.df['value'].loc['temperature']
-        self.time = self.df['value'].loc['residence time']
-        self.volume = self.df['value'].loc['reactor volume']
+        df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/solvay_attributes.xlsx', sheet_name="calciner", skiprows=1)
+        df.set_index('key', inplace=True)
+        self.temperature = df['value'].loc['temperature']
+        self.time = df['value'].loc['residence time']
+        self.volume = df['value'].loc['reactor volume']
         return
 
 
