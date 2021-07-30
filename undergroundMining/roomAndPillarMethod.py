@@ -1,4 +1,4 @@
-from MineIO.underground import *
+from MineIO.roomAndPillarEquipment import *
 from calculators import machine_output
 import pandas as pd
 from calculators import taylorsLaw as tL
@@ -39,7 +39,7 @@ class roomAndPillarMethod:
         self.LHD_load = 5  # tonnes
         self.emissions_df, self.total_emissions_df = self.package_emissions()
         self.opex_df, self.total_opex_df = self.opex()
-        #self.p_method()
+        self.p_method()
         # print(self.emissions/self.required_tonnes_per_year * 365, "kWhrs/tonne")
         # print(self.opex, "£/year")
         return

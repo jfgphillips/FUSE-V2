@@ -1,4 +1,4 @@
-from MineIO.underground import *
+from MineIO.longwallEquipment import *
 from calculators import machine_output
 import pandas as pd
 

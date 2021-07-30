@@ -4,12 +4,12 @@ from calculators.QMachines import haulageVehicle
 class shuttleCar_att(object):
 
     def __init__(self):
-        self.df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/mine_attributes.xlsx', sheet_name="shuttle car", skiprows=1)
-        self.df.set_index('key', inplace = True)
-        self.model = self.df['value'].loc['model']
-        self.nameplate_rating = self.df['value'].loc['nameplate rating']
-        self.power = self.df['value'].loc['power']
-        self.workers = self.df['value'].loc['workers']
+        df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/mine_attributes.xlsx', sheet_name="shuttle car", skiprows=1)
+        df.set_index('key', inplace = True)
+        self.model = df['value'].loc['model']
+        self.nameplate_rating = df['value'].loc['nameplate rating']
+        self.power = df['value'].loc['power']
+        self.workers = df['value'].loc['workers']
         return
 
 
