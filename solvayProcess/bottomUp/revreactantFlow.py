@@ -1,4 +1,5 @@
 from SolvayIO import *
+import pprint
 
 import calculators.unitConversions as uC
 
@@ -25,20 +26,20 @@ class revReactionFlow:
 
     def step2(self):
         print_format = f"to produce sodium bicarbonate {uC.solidMass('NaHCO3', self.bicarbonate)} \n"\
-                       f"req_reactants are (mol): {self.solv_req_reactants} \n" \
-                       f"byproducts are (mol): {self.solv_byproducts}"
+                       f"req_reactants are (mol): \n{pprint.pformat(self.solv_req_reactants)} \n" \
+                       f"byproducts are (mol): {pprint.pformat(self.solv_byproducts)}"
         return print_format
 
     def step3(self):
-        print_format = f"to recycle ammoia ({uC.solidMass('NH4Cl', self.solv_byproducts['NH4Cl'])}) g NH4Cl \n" \
-                       f"req_reactants are (mol): {self.amm_req_reactants} \n" \
-                       f"byproducts are (mol): {self.amm_byproducts} \n" \
-                       f"waste was (mol): {self.waste}"
+        print_format = f"to recycle ammoia ({uC.solidMass('NH4Cl', self.solv_byproducts['NH4Cl'])} g) NH4Cl \n" \
+                       f"req_reactants are (mol): {pprint.pformat(self.amm_req_reactants)} \n" \
+                       f"byproducts are (mol): {pprint.pformat(self.amm_byproducts)} \n" \
+                       f"waste was (mol): {pprint.pformat(self.waste)}"
         return print_format
 
     def step4(self):
-        print_format = f"to recycle ammonia ({uC.solidMass('Ca(OH)2', self.amm_req_reactants['Ca(OH)2'])}g Ca(OH)2 \n" \
-                       f"required reactants are (mol): {self.slaker_req_reactants}"
+        print_format = f"to recycle ammonia ({uC.solidMass('Ca(OH)2', self.amm_req_reactants['Ca(OH)2'])} g) Ca(OH)2 \n" \
+                       f"required reactants are (mol): {pprint.pformat(self.slaker_req_reactants)}"
         return print_format
 
     def step5(self):
@@ -47,7 +48,7 @@ class revReactionFlow:
                       "byproducts": self.kiln_byproducts}
         print_format = f"in order to produce the required mass of calcium oxide ({parameters['CaO']} g) \n" \
                        f"limestone: {parameters['CaCO3']} g\n" \
-                       f"the byproducts were: {parameters['byproducts']}"
+                       f"the byproducts were (mol): {pprint.pformat(parameters['byproducts'])}"
         return print_format
 
     def requiredreactants(self):
@@ -57,10 +58,10 @@ class revReactionFlow:
                       "CaCl2": uC.tonnes(uC.solidMass("CaCl2", self.waste["CaCl2"]))}
 
         print_format = f"the total required starting materials to produce {parameters['soda_ash']} tonnes of soda ash\n"\
-                       f" sodium chloride: {parameters['NaCl']} Tonnes\n" \
-                       f" Limestone: {parameters['CaCO3']} Tonnes\n" \
-                       f" waste produced \n" \
-                       f" calcium chloride: {parameters['CaCl2']} Tonnes"
+                       f"sodium chloride: {parameters['NaCl']} Tonnes\n" \
+                       f"Limestone: {parameters['CaCO3']} Tonnes\n" \
+                       f"waste produced \n" \
+                       f"calcium chloride: {parameters['CaCl2']} Tonnes"
         return print_format
 
 if __name__ == '__main__':
