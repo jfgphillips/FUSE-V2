@@ -4,7 +4,7 @@ import pandas as pd
 
 class longwallMethod:
     def __init__(self, req_tonnes_per_year, no_of_mining_packages):
-        self.df = pd.read_excel(r"/Users/john/Documents/University Work/summer internship/FUSE/data/mine_attributes.xlsx", sheet_name = "longwall method", skiprows=1)
+        self.df = pd.read_excel(r"../data/mine_attributes.xlsx", sheet_name = "longwall method", skiprows=1)
         self.df.set_index('key', inplace=True)
         self.initiate_mining_package = {"longwall shearer": self.df['value'].loc['longwall shearer'],
                                         "t shield": self.df['value'].loc['t shield'],

@@ -4,7 +4,7 @@ import pandas as pd
 
 class mine_att(object):
     def __init__(self):
-        df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/mine_attributes.xlsx', sheet_name="macro details", skiprows=1)
+        df = pd.read_excel(r'../data/mine_attributes.xlsx', sheet_name="macro details", skiprows=1)
         df.set_index('key', inplace=True)
         self.depth = df['value'].loc['depth']
         self.expected_reserves = df['value'].loc["proven + probable deposits"]
