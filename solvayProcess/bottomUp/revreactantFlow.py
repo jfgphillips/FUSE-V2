@@ -60,9 +60,8 @@ class revReactionFlow:
         print_format = f"the total required starting materials to produce {parameters['soda_ash']} tonnes of soda ash\n"\
                        f"sodium chloride: {parameters['NaCl']} Tonnes\n" \
                        f"Limestone: {parameters['CaCO3']} Tonnes\n" \
-                       f"waste produced \n" \
-                       f"calcium chloride: {parameters['CaCl2']} Tonnes"
+                       f"waste produced: calcium chloride: {parameters['CaCl2']} Tonnes"
         return print_format
 
 if __name__ == '__main__':
-    test = revReactionFlow(100000)
+    test = revReactionFlow(1000000)

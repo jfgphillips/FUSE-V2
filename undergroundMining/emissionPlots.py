@@ -6,9 +6,9 @@ class plot:
     def __init__(self):
         self.all_data = rpm()
         self.emissions_data = self.all_data.total_emissions_df
-        print(self.emissions_data)
-        print(self.emissions_data.index)
-        print(self.emissions_data.columns)
+        #print(self.emissions_data)
+        #print(self.emissions_data.index)
+        #print(self.emissions_data.columns)
         self.emissions_boxplot()
 
     def emissions_boxplot(self):
