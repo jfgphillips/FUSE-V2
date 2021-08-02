@@ -12,6 +12,11 @@ class revReactionFlow:
             self.solv_byproducts["NH4Cl"])
         self.slaker_req_reactants = slacker.revReaction(self.amm_req_reactants["Ca(OH)2"])
         self.kiln_req_reactants, self.kiln_byproducts = limeKiln.revReaction(self.slaker_req_reactants["CaO"])
+        self.p_method()
+
+
+
+    def p_method(self):
         print(f'\n\nthis is step 1 \n{self.step1()}\n'
               f'\n\nthis is step 2 \n{self.step2()}\n'
               f'\n\nthis is step 3 \n{self.step3()}\n'
@@ -60,9 +65,8 @@ class revReactionFlow:
         print_format = f"the total required starting materials to produce {parameters['soda_ash']} tonnes of soda ash\n"\
                        f"sodium chloride: {parameters['NaCl']} Tonnes\n" \
                        f"Limestone: {parameters['CaCO3']} Tonnes\n" \
-                       f"waste produced \n" \
-                       f"calcium chloride: {parameters['CaCl2']} Tonnes"
+                       f"waste produced: calcium chloride: {parameters['CaCl2']} Tonnes"
         return print_format
 
 if __name__ == '__main__':
-    test = revReactionFlow(100000)
+    test = revReactionFlow(1000000)

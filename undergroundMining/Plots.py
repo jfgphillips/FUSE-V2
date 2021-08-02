@@ -1,14 +1,15 @@
 import matplotlib.pyplot as plt
 from undergroundMining.roomAndPillarMethod import roomAndPillarMethod as rpm
+import pandas as pd
 
 
 class plot:
     def __init__(self):
         self.all_data = rpm()
-        self.emissions_data = self.all_data.total_emissions_df
-        print(self.emissions_data)
-        print(self.emissions_data.index)
-        print(self.emissions_data.columns)
+        self.emissions_data = self.all_data.total_emissions_df.div(self.all_data.required_tonnes_per_year).mul(365)
+        #print(self.emissions_data)
+        #print(self.emissions_data.index)
+        #print(self.emissions_data.columns)
         self.emissions_boxplot()
 
     def emissions_boxplot(self):
@@ -20,7 +21,7 @@ class plot:
                                           kind="bar",
                                           stacked=True,
                                           color=colours, y=fields)
-        myplot.set_ylabel("Emissions (kWhr/year)")
+        myplot.set_ylabel("Emissions (kWhr/tonne)")
         plt.title("Mining technique")
         plt.xticks(rotation=0)
         plt.legend(loc=0)

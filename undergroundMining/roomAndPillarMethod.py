@@ -8,7 +8,7 @@ import pprint
 class roomAndPillarMethod:
     def __init__(self):
         self.df = pd.read_excel(
-            r"/Users/john/Documents/University Work/summer internship/FUSE/data/mine_attributes.xlsx",
+            r"../data/mine_attributes.xlsx",
             sheet_name="r & p method", skiprows=1)
         self.df.set_index('key', inplace=True)
         self.initiate_mining_package = {"continuous miner": self.df['value'].loc['continuous miner'],

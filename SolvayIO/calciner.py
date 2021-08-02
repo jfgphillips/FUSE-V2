@@ -3,7 +3,7 @@ from calculators.QReactors import tubeFurnace
 
 class calciner_att(object):
     def __init__(self):
-        df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/solvay_attributes.xlsx', sheet_name="calciner", skiprows=1)
+        df = pd.read_excel(r'../data/solvay_attributes.xlsx', sheet_name="calciner", skiprows=1)
         df.set_index('key', inplace=True)
         self.temperature = df['value'].loc['temperature']
         self.time = df['value'].loc['residence time']

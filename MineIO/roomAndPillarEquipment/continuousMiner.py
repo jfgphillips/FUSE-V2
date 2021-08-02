@@ -5,7 +5,7 @@ from calculators.QMachines import poweredVehicle
 
 class continuousMiner_att(object):
     def __init__(self):
-        df = pd.read_excel(r'/Users/john/Documents/University Work/summer internship/FUSE/data/mine_attributes.xlsx', sheet_name="continuous miner", skiprows=1)
+        df = pd.read_excel(r'../data/mine_attributes.xlsx', sheet_name="continuous miner", skiprows=1)
         df.set_index('key', inplace=True)
         # print(self.df.index)
         self.production_output = df['value'].loc["production output"]
