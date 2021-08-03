@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-def haulageVehicle(motor_kW, running_load, nameplate_rating, utilisation_factor, op_units):
+def haulageVehicle(motor_kW=None, running_load=None, nameplate_rating=None, utilisation_factor=None, op_units=None):
     """
     :param motor_kW: engine horse power
     :param running_load: how much the unit is carrying
@@ -49,7 +49,7 @@ def beltConveyor(belt_speed, belt_length, gradient, conveyor_output, drive_train
     return drive_kW
 
 
-def poweredVehicle(motor_kW, utilisation_factor, op_units):
+def poweredVehicle(motor_kW=None, utilisation_factor=None, op_units=None):
     """
 
     :param motor_kW:

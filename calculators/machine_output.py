@@ -1,16 +1,17 @@
 
-def machine_output_calc(soda_ash_tpy, mining_package, conversion_efficiency, mineral_grade, production_hrs_wk):
-    """
-    :param soda_ash_tpy:
-    :param mining_package: how many mining packages involved
-           e.g
-           bolter continuous miner shuttle
-           longwall shearer + 2 borer miners + 1 bleeder + shuttle cars
-    :return: an estimate of rock and ore tonnes per hour per mining package
+def machine_output_calc(required_tpy=None, mining_package=None, conversion_efficiency=None, ore_grade=None, production_hrs_wk=None):
     """
 
-    ore_tpy = soda_ash_tpy/conversion_efficiency
-    ore_and_rock_tpy = ore_tpy/mineral_grade
+    :param required_tpy:
+    :param mining_package:
+    :param conversion_efficiency:
+    :param ore_grade:
+    :param production_hrs_wk:
+    :return:
+    """
+
+    ore_tpy = required_tpy / conversion_efficiency
+    ore_and_rock_tpy = ore_tpy / ore_grade
     ore_and_rock_tpy_per_miner = ore_and_rock_tpy / mining_package
     ore_and_rock_tpm_per_miner = ore_and_rock_tpy_per_miner / 52
     #print(production_hrs_wk)

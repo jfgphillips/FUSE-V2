@@ -8,6 +8,10 @@ class afc_att:
     def __init__(self):
         df = pd.read_excel(r'../data/mine_attributes.xlsx', sheet_name="afc", skiprows=1)
 
+    def qMachine(self):
+        return
+
+
 class flatLinkChain_att:
     def __init__(self):
         df = pd.read_excel(r'../data/mine_attributes.xlsx', sheet_name="flat link chain", skiprows=1)

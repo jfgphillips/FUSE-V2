@@ -14,5 +14,4 @@ class roofBolter_att(object):
 
 def qMachine(power, usage, units):
     emissions = poweredVehicle(power, usage, units)
-
     return emissions
