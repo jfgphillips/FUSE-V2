@@ -1,7 +1,7 @@
 from molmass import Formula
 
 
-def solidMol(formula, mass):
+def solidMol(formula=None, mass=None):
     """
     solid conversion from mass to mol
     :param formula: string formula
@@ -13,7 +13,7 @@ def solidMol(formula, mass):
     return mol
 
 
-def solidMass(formula, mol):
+def solidMass(formula=None, mol=None):
     """
     solid conversion from mol to mass
     :param formula: string formula
@@ -25,7 +25,7 @@ def solidMass(formula, mol):
     return mass
 
 
-def liqMol(concentration, volume):
+def liqMol(concentration=None, volume=None):
     """
     liquid conversion from concentration to mol
     :param concentration: mol dm^(-3)
@@ -36,7 +36,7 @@ def liqMol(concentration, volume):
     return mol
 
 
-def liqConcentration(mol, volume):
+def liqConcentration(mol=None, volume=None):
     """
     liquid conversion from mol to concentration
     :param mol: units mol
@@ -47,7 +47,7 @@ def liqConcentration(mol, volume):
     return concentration
 
 
-def liqVolume(mol, concentration):
+def liqVolume(mol=None, concentration=None):
     """
     liquid conversion from mol to volume
     :param mol: units mol
@@ -57,7 +57,7 @@ def liqVolume(mol, concentration):
     volume = (mol * 1000)/concentration
     return volume
 
-def tonnes(grams):
+def tonnes(grams=None):
     """
     grams to tonne conversion
     :param grams: units grams
@@ -66,7 +66,7 @@ def tonnes(grams):
     t = grams * 1*10**(-6)
     return t
 
-def grams(tonnes):
+def grams(tonnes=None):
     """
     tonnes to grams conversion
     :param tonnes: unit metric tonnes
@@ -75,7 +75,7 @@ def grams(tonnes):
     g = tonnes * 1*10**(6)
     return g
 
-def kiloWattHours(joules):
+def kiloWattHours(joules=None):
     """
     :param joules: unit joules
     :return: kWh (kilowatt hours)

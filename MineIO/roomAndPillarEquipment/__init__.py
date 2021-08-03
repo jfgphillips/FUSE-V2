@@ -1,1 +1,1 @@
-__all__ = ["continuousMiner", "LHD", "mineAttributes", "roofBolter", "shuttleCar", "worker", "utility"]
+__all__ = ["continuousMiner", "LHD", "roofBolter"]

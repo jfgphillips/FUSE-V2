@@ -7,10 +7,8 @@ class plot:
     def __init__(self):
         self.all_data = rpm()
         self.emissions_data = self.all_data.total_emissions_df.div(self.all_data.required_tonnes_per_year).mul(365)
-        #print(self.emissions_data)
-        #print(self.emissions_data.index)
-        #print(self.emissions_data.columns)
         self.emissions_boxplot()
+        return
 
     def emissions_boxplot(self):
         fields = ['miner_emissions', 'support_emissions', 'transportation_emissions']
@@ -26,6 +24,7 @@ class plot:
         plt.xticks(rotation=0)
         plt.legend(loc=0)
         plt.show()
+        return
 
         # print(plt.bar(self.emissions_data.index))
 
@@ -34,3 +33,4 @@ class plot:
 
 if __name__ == '__main__':
     test = plot()
+

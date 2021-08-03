@@ -1,6 +1,6 @@
 
 
-def Schomate_equation(A, B, C, D, E, temp):
+def Schomate_equation(A=None, B=None, C=None, D=None, E=None, temp=None):
     """
     Parameters for each compound can be found at: https://webbook.nist.gov/chemistry/
     ensure temperature of reaction is being considered
