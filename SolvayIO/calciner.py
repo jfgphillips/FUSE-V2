@@ -11,7 +11,7 @@ class calciner_att(object):
         return
 
 
-def reaction(sodium_bicarbonate):
+def reaction(sodium_bicarbonate=None):
     """
     2NaHCO3 --> Na2CO3 + H20 + CO2
     :param sodium_bicarbonate:
@@ -23,11 +23,11 @@ def reaction(sodium_bicarbonate):
     Na2CO3 = sodium_bicarbonate / 2 * YIELD
     water = sodium_bicarbonate / 2 * YIELD
     cacliner_CO2 = sodium_bicarbonate / 2 * YIELD
-    products = {"Na2CO3":Na2CO3, "water": water,"cacliner_CO2":cacliner_CO2}
+    products = {"Na2CO3":Na2CO3, "H20": water,"CO2":cacliner_CO2}
 
     return products
 
-def revReaction(soda_ash):
+def revReaction(soda_ash=None):
     """
     2NaHCO3 <-- Na2CO3 + H20 + CO2
     :param soda_ash:
@@ -39,7 +39,7 @@ def revReaction(soda_ash):
     return sodium_bicarbonate
 
 
-def qMachine(machine_properties):
+def qMachine(machine_properties=None):
     density_NaHCO3 = 2.2
     weighted_av_density = density_NaHCO3
     energyConsumption = tubeFurnace(machine_properties.temperature,machine_properties.time,machine_properties.volume, weighted_av_density)  # kW

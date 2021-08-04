@@ -3,7 +3,6 @@ import pprint
 
 import calculators.unitConversions as uC
 
-
 class revReactionFlow:
     def __init__(self, soda_ash):
         self.soda_ash = soda_ash
@@ -27,6 +26,9 @@ class revReactionFlow:
         print_format = f"For the production of: {self.soda_ash}g soda ash\n" \
                        f"{uC.solidMass('NaHCO3', self.bicarbonate)}g of sodium bicarbonate is required"
         return print_format
+
+    def dummy_print(self):
+        print("bla bla bla " + "bla "+ str(13) + "\n")
 
     def step2(self):
         print_format = f"to produce sodium bicarbonate {uC.solidMass('NaHCO3', self.bicarbonate)} \n" \

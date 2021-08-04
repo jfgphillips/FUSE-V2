@@ -90,14 +90,14 @@ class roomAndPillarMethod:
                                      self.usage_factor,
                                      self.units) * self.initiate_mining_package['LHD']
 
-        emissions_df = pd.DataFrame(data={"miner_emissions": [continuous_miner_emissions],
+        mining_emissions_df = pd.DataFrame(data={"miner_emissions": [continuous_miner_emissions],
                                           "support_emissions": [roof_bolter_emissions + LHD_emissions],
                                           'transportation_emissions': [shuttle_car_emissions]},
-                                    index=['room and pillar method'])
-        emissions_df['sum'] = emissions_df.sum(axis=1)
-        total_emissions_df = emissions_df.mul(self.mine.mining_packages)
+                                           index=['room and pillar method'])
+        mining_emissions_df['sum'] = mining_emissions_df.sum(axis=1)
+        total_emissions_df = mining_emissions_df.mul(self.mine.mining_packages)
         # print(total_emissions_df)
-        return emissions_df, total_emissions_df
+        return mining_emissions_df, total_emissions_df
 
     def opex(self):
         """
@@ -108,7 +108,8 @@ class roomAndPillarMethod:
             'worker']  # TODO: find out the factor for working hours
         utility_costs = self.utility.electricity * self.emissions_df['sum'].loc['room and pillar method']
         opex_df = pd.DataFrame(data={"labour_costs": [labour_costs],
-                                     "utility_costs": [utility_costs]},
+                                     "utility_costs": [utility_costs],
+                                     "chemical_costs": 0},
                                index=['room and pillar method'])
         opex_df['sum'] = opex_df.sum(axis=1)
         total_opex_df = opex_df.mul(self.mine.mining_packages)
@@ -118,3 +119,5 @@ class roomAndPillarMethod:
 if __name__ == '__main__':
     test = roomAndPillarMethod()
     print(test)
+
+

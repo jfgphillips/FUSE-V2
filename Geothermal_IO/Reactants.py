@@ -1,7 +1,7 @@
 from calculators import unitConversions
 
 
-def Li2CO3_refinement(Li2CO3_tpy):
+def Li2CO3_refinement(Li2CO3_tpy=None):
     """"
     :param Li2CO3_tpy: production of lithium carbonate in tons per year
     :return: an estimate of the masses of reactant used for the refinement of LiCl to Li2CO3

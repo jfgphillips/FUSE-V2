@@ -14,7 +14,7 @@ class continuousMiner_att(object):
         return
 
 
-def qMachine(power, required_output, prod_output, usage, units):
+def qMachine(power=None, required_output=None, prod_output=None, usage=None, units=None):
     miner_factor = required_output/prod_output
     emissions = poweredVehicle(power, usage, units) * miner_factor
 

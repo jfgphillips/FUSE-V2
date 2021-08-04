@@ -10,7 +10,7 @@ class ammoniaSaturator_att(object):
         return
 
 
-def reaction(NaCl, ammonia):
+def reaction(NaCl=None, ammonia=None):
     """
     NaCl
     NH3

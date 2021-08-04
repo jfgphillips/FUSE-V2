@@ -17,8 +17,8 @@ def reaction(reacted_solution):
     """
     EFFICIENCY = 1
 
-    NH4Cl = reacted_solution["NH4Cl"] * EFFICIENCY
-    NaHCO3 = reacted_solution["NaHCO3"] * EFFICIENCY
+    NH4Cl = {"NH4Cl" : reacted_solution["NH4Cl"] * EFFICIENCY}
+    NaHCO3 = {"NaHCO3" : reacted_solution["NaHCO3"] * EFFICIENCY}
 
     return NH4Cl, NaHCO3
 
