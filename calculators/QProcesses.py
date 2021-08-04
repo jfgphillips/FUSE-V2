@@ -4,18 +4,19 @@ def stirring_energy(impeller_power_number=None,
                     impeller_diameter=None,
                     agitator_rotational_speed=None,
                     density=None,
-                    stirring_time=None):
+                    stirring_time=None,
+                    efficiency=None):
     """
     source: Huang 2021 life cycle assessment and techno-echonomic assessment of lithium recovery from geothermal brine
     :param impeller_power_number: power number of the impeller (axial flow = 0.79)
     :param impeller_diameter: diameter of the impeller
     :param agitator_rotational_speed: rotational speed of the agitator
     :param density: density of the reaction mixture to be stirred
-    :param stirring_time: stirring time of the mixture
+    :param stirring_time: stirring time of the
+    :param efficiency: efficiency of the impeller
     :return: stirring energy (E_stirr) in Joules
     """
 
-    efficiency = 0.9 # taken from source
     N_p = impeller_power_number
     d = impeller_diameter # meter
     N = agitator_rotational_speed # 1/seconds
@@ -28,7 +29,12 @@ def stirring_energy(impeller_power_number=None,
     return(E_stirr)
 
 
-def drying_energy(heat_capacity_solution, mass_solution, boiling_temperature, starting_temperature,evaporation_enthalpy,mass_vapour):
+def drying_energy(heat_capacity_solution=None,
+                  mass_solution=None,
+                  boiling_temperature=None,
+                  starting_temperature=None,
+                  evaporation_enthalpy=None,
+                  mass_vapour=None):
     """
     source: Huang 2021 life cycle assessment and techno-echonomic assessment of lithium recovery from geothermal brine
     :param heat_capacity_solution: heat capacity of the solution
@@ -44,7 +50,7 @@ def drying_energy(heat_capacity_solution, mass_solution, boiling_temperature, st
     C_p_liq = heat_capacity_solution # J/(kg*K)
     m_liq = mass_solution # kg
     T_boil = boiling_temperature # K
-    T_0 = boiling_temperature # K
+    T_0 = starting_temperature # K
     H_vap = evaporation_enthalpy # J/kg
     m_vap = mass_vapour # kg
     n_dry = efficiency
@@ -75,3 +81,14 @@ def grinding_energy(tonnes):
     energy = 16 # kWh/ton, upper limit of 8 - 16 kWh/ton given in source
     Q_grinding = energy * tonnes
     return(Q_grinding)
+
+
+def pumping_energy(tonnes):
+    """
+    source: Piccinno 2016, From laboratory to industrial scale: a scale-up framework for chemical processes in life cycle assessment studies
+    :param tonnes: tonnes of liquid pumped
+    :return: pumping energy in Joules for a steel pipe of 20 cm diameter and 30 m length
+    """
+
+    Q_pump = 55 * tonnes
+    return (Q_pump)
