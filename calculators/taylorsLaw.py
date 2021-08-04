@@ -1,4 +1,4 @@
-def taylors_law(expected_reserves, days_per_year):
+def taylors_law(expected_reserves=None, days_per_year=None):
     """
     :param expected_reserves: proven + probable reserves of a mine (tonnes)
     :param days_per_year: mine operation days in a year (d/yr)

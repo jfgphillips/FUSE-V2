@@ -1,6 +1,11 @@
 import numpy as np
 
-def fixedBedReactor(reaction_temperature, reaction_time, surface_area,thermal_conductivity, wall_thickness):
+def fixedBedReactor(reaction_temperature=None,
+                    reaction_time=None,
+                    surface_area=None,
+                    thermal_conductivity=None,
+                    wall_thickness=None
+                    ):
     """
     Sharma 2020 towards sustainable batteries d0ee02511a1
     :param reaction_temperature:
@@ -20,7 +25,12 @@ def fixedBedReactor(reaction_temperature, reaction_time, surface_area,thermal_co
 
     return Qreactor
 
-def batchReactor(reaction_temperature, reaction_time, surface_area,thermal_conductivity, wall_thickness, liq_density):
+def batchReactor(reaction_temperature=None,
+                 reaction_time=None,
+                 surface_area=None,
+                 thermal_conductivity=None,
+                 wall_thickness=None,
+                 liq_density=None):
     """
     Sharma 2020 towards sustainable batteries d0ee02511a1
     :param reaction_temperature:
@@ -45,7 +55,10 @@ def batchReactor(reaction_temperature, reaction_time, surface_area,thermal_condu
 
     return qReactor, qReaction
 
-def tubeFurnace(reaction_temperature, reaction_time, reactor_volume, weighted_av_density):
+def tubeFurnace(reaction_temperature=None,
+                reaction_time=None,
+                reactor_volume=None,
+                weighted_av_density=None):
     """
 
     :param reaction_temperature: degrees celcius

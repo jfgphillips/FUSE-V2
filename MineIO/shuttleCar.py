@@ -13,7 +13,7 @@ class shuttleCar_att(object):
         return
 
 
-def qMachine(power, load, rating, usage, units):
+def qMachine(power=None, load=None, rating=None, usage=None, units=None):
     emissions = haulageVehicle(power, load, rating, usage, units)
 
     return emissions

@@ -1,5 +1,5 @@
 import tkinter as tk
-import solvayProcess.bottomUp.revreactantFlow as rrF
+import solvayProcess.revreactantFlow as rrF
 
 
 class Application(tk.Frame):

@@ -24,7 +24,7 @@ def reaction(limestone):
     quick_lime = limestone * YIELD
     CO_2 = limestone * YIELD
 
-    products = {"CaO": quick_lime, "kiln_CO_2": CO_2}
+    products = {"CaO": quick_lime, "CO2": CO_2}
 
     return products
 

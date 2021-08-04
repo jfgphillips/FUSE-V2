@@ -10,11 +10,11 @@ class ammoniaRecTower_att(object):
         self.time = df['value'].loc['residence time']
         return
 
-def reaction(slacked_lime, ammonium_chloride):
+def reaction(CaOH2=None, NH4Cl=None):
     """
     2 NH4Cl + Ca(OH)2 --> CaCl2 + 2 NH3 + 2 H20
-    :param slacked_lime: concentration of slacked lime in solution
-    :param ammonium_chloride: concentration of ammonium chloride
+    :param CaOH2: concentration of slacked lime in solution
+    :param NH4Cl: concentration of ammonium chloride
     :param YIELD: efficiency of the step
     AMMONIARECOVERY source: https://chemicalengineeringfacts.wordpress.com/2017/01/17/chemical-technology/
 
@@ -22,10 +22,10 @@ def reaction(slacked_lime, ammonium_chloride):
     """
     YIELD = 1
     AMMONIARECOVERY = 0.98
-    if slacked_lime >= ammonium_chloride:
-        limiting_reagent = ammonium_chloride/2
-    elif ammonium_chloride > slacked_lime:
-        limiting_reagent = slacked_lime
+    if CaOH2 >= NH4Cl:
+        limiting_reagent = NH4Cl / 2
+    elif NH4Cl > CaOH2:
+        limiting_reagent = CaOH2
 
     cal_chloride = limiting_reagent * 1 * YIELD
     rec_ammonia = limiting_reagent * 2 * AMMONIARECOVERY
@@ -36,7 +36,7 @@ def reaction(slacked_lime, ammonium_chloride):
 
     return products, waste
 
-def revReaction(ammonium_chloride):
+def revReaction(ammonium_chloride=None):
     """
     2 NH4Cl + Ca(OH)2 --> CaCl2 + 2 NH3 + 2 H20
     :param ammonium_chloride:

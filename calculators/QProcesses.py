@@ -1,6 +1,10 @@
 
 
-def stirring_energy(impeller_power_number, impeller_diameter, agitator_rotational_speed, density, stirring_time):
+def stirring_energy(impeller_power_number=None,
+                    impeller_diameter=None,
+                    agitator_rotational_speed=None,
+                    density=None,
+                    stirring_time=None):
     """
     source: Huang 2021 life cycle assessment and techno-echonomic assessment of lithium recovery from geothermal brine
     :param impeller_power_number: power number of the impeller (axial flow = 0.79)
@@ -68,7 +72,6 @@ def grinding_energy(tonnes):
     :param tonnes: mass of the mixture in tonnes
     :return: grinding energy
     """
-
     energy = 16 # kWh/ton, upper limit of 8 - 16 kWh/ton given in source
     Q_grinding = energy * tonnes
     return(Q_grinding)

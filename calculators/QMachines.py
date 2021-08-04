@@ -52,9 +52,9 @@ def beltConveyor(belt_speed, belt_length, gradient, conveyor_output, drive_train
 def poweredVehicle(motor_kW=None, utilisation_factor=None, op_units=None):
     """
 
-    :param motor_kW:
-    :param utilisation_factor:
-    :param op_units:
+    :param motor_kW: the power requirement of the motor in kilowatts
+    :param utilisation_factor: how much the vehicle is being used per year
+    :param op_units: the unit factor being a year, month, day etc, default = year
     :return:
     """
     unit_energy_consumption = motor_kW * utilisation_factor * op_units
@@ -66,7 +66,3 @@ def environment():
     environment_impact = np.nan
     return environment_impact
 
-
-def miner(motor_kW, rock_hardness):  # TODO: adrian implement
-    miner_kW = np.nan
-    return miner_kW

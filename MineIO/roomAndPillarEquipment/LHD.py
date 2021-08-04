@@ -11,7 +11,7 @@ class LHD_att(object):
         self.nameplate_rating = df['value'].loc['nameplate rating']
 
 
-def qMachine(power, load, rating, usage, units):
+def qMachine(power=None, load=None, rating=None, usage=None, units=None):
     emissions = haulageVehicle(power, load, rating, usage, units)
 
     return emissions

@@ -1,4 +1,6 @@
-def drum_hoist(hoisting_dist_m, production_avaliability, production_capacity_tpd):
+def drum_hoist(hoisting_dist_m=None,
+               production_avaliability=None,
+               production_capacity_tpd=None):
     """
     :param hoisting_dist_m: shaft distance in meters
     :param production_avaliability: how much of the week the shaft is availiable for haulage ops

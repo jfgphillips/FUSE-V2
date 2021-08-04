@@ -1,13 +1,18 @@
 
-def machine_output_calc(required_tpy=None, mining_package=None, conversion_efficiency=None, ore_grade=None, production_hrs_wk=None):
+def machine_output_calc(required_tpy=None,
+                        mining_package=None,
+                        conversion_efficiency=None,
+                        ore_grade=None,
+                        production_hrs_wk=None):
     """
 
-    :param required_tpy:
-    :param mining_package:
-    :param conversion_efficiency:
-    :param ore_grade:
-    :param production_hrs_wk:
-    :return:
+    :param required_tpy: required tonnes of refined product a year
+    :param mining_package: number of mining packages operating on the mine
+    :param conversion_efficiency: from ore + rock to product conversion
+    :param ore_grade: the percentage of ore in the mineral itself e.g. trona = 90%
+    :param production_hrs_wk: how many hours the mine operates a week
+    :return:amount of ore plus rock mined by each package per hour
+            to achieve the required tonnes per year
     """
 
     ore_tpy = required_tpy / conversion_efficiency

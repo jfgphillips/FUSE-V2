@@ -12,6 +12,6 @@ class roofBolter_att(object):
         return
 
 
-def qMachine(power, usage, units):
+def qMachine(power=None, usage=None, units=None):
     emissions = poweredVehicle(power, usage, units)
     return emissions
