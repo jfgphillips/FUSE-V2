@@ -5,7 +5,7 @@ from molmass import Formula
 
 class SorbentSynthesisChemicals_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'../data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'\Users\chant\PycharmProjects\FUSE-V2\data\LDH_attributes.xlsx',
                                 sheet_name="chemicals_sorbent_synthesis", skiprows=1)
         self.df.set_index('key', inplace=True)
         self.mass_sorbent_year = self.df['value'].loc['mass_sorbent']  # kg/year
@@ -33,18 +33,13 @@ class SorbentSynthesisChemicals_att(object):
         self.mass_H2O = unitConversions.solidMass('H2O', self.mol_H2O)
         self.mol_HCl = (self.mol_ratio_HCl * self.mol_sorbent) / self.Yield
         self.mass_HCl = unitConversions.solidMass('HCl', self.mol_HCl)
-        self.df_3 = pd.read_excel(r'../data\LDH_attributes.xlsx',
-                                  sheet_name='densities',
-                                  skiprows=1)
-        self.df_3.set_index('key', inplace=True)
-        self.density_LiOH_H2O = self.df_3['value'].loc['LiOH_H2O']
-        self.density_aluminium_hydroxide = self.df_3['value'].loc['Al(OH)3']
-        self.density_H2O = self.df_3['value'].loc['H2O']
-        self.density_HCl = self.df_3['value'].loc['HCl']
         return
 
 def QReactants(mol_LiOH_H2O=None, hc_LiOH=None, mol_aluminium_hydroxide=None, hc_aluminium_hydroxide=None,
                mol_H2O=None, hc_H2O=None, mol_HCl=None, hc_HCl=None, reaction_temperature=None):
+    """
+    source: Sharma 2020
+    """
     room_temperature = 298.15 #K
     q_reactants_joule = (mol_LiOH_H2O * hc_LiOH * (reaction_temperature - room_temperature) +
                        mol_aluminium_hydroxide * hc_aluminium_hydroxide * (reaction_temperature - room_temperature) +

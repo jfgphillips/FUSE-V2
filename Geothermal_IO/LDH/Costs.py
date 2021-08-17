@@ -1,5 +1,5 @@
 import pandas as pd
-from Geothermal_IO.SorbentSynthesis import Chemicals
+
 
 class UtilityAndChemicals_att(object):
     def __init__(self):

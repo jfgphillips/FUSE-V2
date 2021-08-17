@@ -2,7 +2,7 @@ import pandas as pd
 
 class SorbentSynthesisEquipment(object):
     def __init__(self):
-        self.df = pd.read_excel(r'../data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'\Users\chant\PycharmProjects\FUSE-V2\data\LDH_attributes.xlsx',
                                 sheet_name="equipment", skiprows=1)
         self.df.set_index('key', inplace=True)
         self.reactor_FOB = self.df['FOB'].loc['reactor with agitator']
