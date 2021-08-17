@@ -11,7 +11,7 @@ class LDH_energy(object):
         self.chemicals = Sor_Syn_Chemicals.SorbentSynthesisChemicals_att()
         self.hC = HeatCapacities.HeatCapacities_att()
         self.reactor = Sor_Syn_Reactor.BatchReactor_att()
-        self.Impeller = Impeller.Impeller_att()
+        self.impeller = Impeller.Impeller_att()
         self.densities = Densities_and_Tb.DensitiesSorbentSynthesis()
         self.HV = HeatVaporization.HeatVaporization()
         self.FO = ForwardOsmosis.ForwardOsmosis()
@@ -86,13 +86,13 @@ class LDH_energy(object):
 
     def __repr__(self):
 
-        total_energy_consumption = self.energy_df['sum'].loc['Sorbent_Synthesis']
+        total_energy_consumption = self.energy_df['sum'].loc['Geothermal_LDH']
 
-        print_emissions = f'The total emissions to produce {self.reactant_flow.LC_purification_product["pure Li2CO3"]} ' \
-                          f'kg battery grade lithium carbonate for one year operation from a brine flow of ' \
-                          f'{self.plant.brine_flow_day} m^3 per day with a LiCL concentration of ' \
+        print_emissions = f'The total emissions to produce {self.reactant_flow.LC_purification_product["pure Li2CO3"]} '\
+                          f'kg battery grade lithium carbonate per year from a brine flow of ' \
+                          f'{self.plant.brine_flow_day} m^3 per day \nwith a LiCL concentration of ' \
                           f'{self.brine.Li_conc_brine} g/L are: {total_energy_consumption} kWh\n' \
-                          f'The emissions per kg of sorbent are: ' \
+                          f'The emissions per kg of lithium carbonate are: ' \
                           f'{total_energy_consumption / self.reactant_flow.LC_purification_product["pure Li2CO3"]} kWh/kg'
 
         output = f"{print_emissions}"
@@ -131,14 +131,14 @@ class LDH_energy(object):
         q_reaction_sor_syn = uC.kiloWattHours(q_reactants_sor_syn) + q_reactor_sor_syn * 10**(-3)
 
 
-        req_stir_energy_sor_syn_kwargs = {'impeller_power_number': self.Impeller.impeller_power_number,
-                                          'impeller_diameter': self.Impeller.impeller_diameter,
-                                          'agitator_rotational_speed': self.Impeller.agitator_rotational_speed,
+        req_stir_energy_sor_syn_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
+                                          'impeller_diameter': self.impeller.impeller_diameter,
+                                          'agitator_rotational_speed': self.impeller.agitator_rotational_speed,
                                           'density_1': self.density_1 * 10**(-3),
                                           'density_2': self.density_2 * 10**(-3),
                                           'stirring_time_1': self.reactor.reaction_time_1,
                                           'stirring_time_2': self.reactor.reaction_time_2,
-                                          'efficiency': self.Impeller.efficiency}
+                                          'efficiency': self.impeller.efficiency}
 
         stirring_energy_sor_syn = uC.kiloWattHours(Impeller.StirringEnergySorSyn(**req_stir_energy_sor_syn_kwargs))
 
@@ -194,12 +194,12 @@ class LDH_energy(object):
 
         q_reaction_LC_processing = uC.kiloWattHours(q_reactants_LC_processing) + q_reactor_LC_processing[0] * 10**(-3)
 
-        req_stir_energy_LC_processing_kwargs = {'impeller_power_number': self.Impeller.impeller_power_number,
-                                                'impeller_diameter': self.Impeller.impeller_diameter,
-                                                'agitator_rotational_speed': self.Impeller.agitator_rotational_speed,
+        req_stir_energy_LC_processing_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
+                                                'impeller_diameter': self.impeller.impeller_diameter,
+                                                'agitator_rotational_speed': self.impeller.agitator_rotational_speed,
                                                 'density': self.density_LC_processing * 10**(-3),
                                                 'stirring_time': self.LC_processing.reaction_time,
-                                                'efficiency': self.Impeller.efficiency}
+                                                'efficiency': self.impeller.efficiency}
 
         stirring_energy_LC_processing = uC.kiloWattHours(QProcesses.stirring_energy
                                                          (**req_stir_energy_LC_processing_kwargs))
@@ -237,12 +237,12 @@ class LDH_energy(object):
 
         q_reaction_LC_carbonation = uC.kiloWattHours(q_reactants_LC_carbonation) + q_reactor_LC_carbonation[0] * 10**(-3)
 
-        req_stir_energy_carbonation_kwargs = {'impeller_power_number': self.Impeller.impeller_power_number,
-                                              'impeller_diameter': self.Impeller.impeller_diameter,
-                                              'agitator_rotational_speed': self.Impeller.agitator_rotational_speed,
+        req_stir_energy_carbonation_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
+                                              'impeller_diameter': self.impeller.impeller_diameter,
+                                              'agitator_rotational_speed': self.impeller.agitator_rotational_speed,
                                               'density': self.density_LC_purification * 10**(-3),
                                               'stirring_time': self.LC_purification.carbonation_time,
-                                              'efficiency': self.Impeller.efficiency}
+                                              'efficiency': self.impeller.efficiency}
 
         stirring_energy_carbonation = uC.kiloWattHours(QProcesses.stirring_energy(**req_stir_energy_carbonation_kwargs))
 
@@ -284,12 +284,12 @@ class LDH_energy(object):
         q_reaction_LC_precipitation = uC.kiloWattHours(q_reactants_LC_precipitation) + \
                                       q_reactor_LC_precipitation[0] * 10**(-3)
 
-        req_stir_energy_precipitation_kwargs = {'impeller_power_number': self.Impeller.impeller_power_number,
-                                                'impeller_diameter': self.Impeller.impeller_diameter,
-                                                'agitator_rotational_speed': self.Impeller.agitator_rotational_speed,
+        req_stir_energy_precipitation_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
+                                                'impeller_diameter': self.impeller.impeller_diameter,
+                                                'agitator_rotational_speed': self.impeller.agitator_rotational_speed,
                                                 'density': self.density_LC_purification * 10**(-3),
                                                 'stirring_time': self.LC_purification.precipitation_time,
-                                                'efficiency': self.Impeller.efficiency}
+                                                'efficiency': self.impeller.efficiency}
 
         stirring_energy_precipitation = uC.kiloWattHours(QProcesses.stirring_energy
                                                          (**req_stir_energy_precipitation_kwargs))
@@ -334,10 +334,11 @@ class LDH_energy(object):
                                                                  pumping_energy_carbonation_processing +
                                                                  pumping_energy_precipitation_filtration +
                                                                  pumping_energy_LC_purification_wash]},
-                                 index=['Sorbent_Synthesis'])
+                                 index=['Geothermal_LDH'])
         energy_df['sum'] = energy_df.sum(axis=1)
 
         return energy_df
+
 
 if __name__ == '__main__':
     test = LDH_energy()

@@ -1,5 +1,8 @@
 import pandas as pd
 from Geothermal_IO.LDH import *
+from Geothermal_extraction import LDH_energy
+from Geothermal_extraction import Reactant_flow
+
 
 class LDH_opex(object):
     def __int__(self):
@@ -9,38 +12,56 @@ class LDH_opex(object):
         self.stripping = Column_Stripping.ColumnExtractionStripping()
         self.carbonate_processing = LC_processing.LiCarbonateProcessing_att()
         self.carbonate_purification = LC_purification.LiCarbonatePurification_att()
-        self.df = pd.read_excel(r'\Users\chant\PycharmProjects\FUSE-V2\data\LDH_attributes.xlsx',
-                                sheet_name="water", skiprows=1)
-        self.df.set_index('key', inplace=True)
-        self.df.set_index('key', inplace=True)
-        self.water_usage = (self.df['value'].loc['process'] + self.chemicals.mass_H2O * 10 ** (-3) +
-                            self.washing.H2O_washing_total + self.stripping.H2O_stripping_total)
-        self.total_costs_chemicals_and_utility = self.opex()
+        self.energy = LDH_energy.LDH_energy()
+        self.water = Water.Water_att()
+        self.reactant_flow = Reactant_flow.ReactantFlow()
+        self.worker = Worker.worker_att()
+        self.plant = Plant.Plant_att()
+        self.brine = Brine.Brine_att()
+        self.opex_df = self.CostsOpex()
+        return
 
     def __repr__(self):
-        print_opex = f'The total costs for chemicals, water and electricity to produce {self.chemicals.mass_sorbent_year}' \
-                     f'kg for one year operation are: {self.total_costs_chemicals_and_utility} $\n' \
-                     f'The costs for chemicals, water and electricity per kg of sorbent are:' \
-                     f'{self.total_costs_chemicals_and_utility / self.chemicals.mass_sorbent_year}$/kg'
+
+        total_opex = self.opex_df['sum'].loc['Geothermal_LDH']
+        print_opex = f'The total opex to product {self.reactant_flow.LC_purification_product["pure Li2CO3"]} ' \
+                     f'kg battery grade lithium carbonate per year from a brine flow of ' \
+                     f'{self.plant.brine_flow_day} m^3 per day \nwith a LiCl concentration of ' \
+                     f'{self.brine.Li_conc_brine} g/L are: {total_opex} $ \n' \
+                     f'The costs per kg of lithium carbonate are: ' \
+                     f'{total_opex / self.reactant_flow.LC_purification_product["pure Li2CO3"]} $/kg'
 
         output = f"{print_opex}"
         return output
 
-
-    def opex(self):
-        """
-        gives the total costs for chemicals, water and electricity used for the sorbent synthesis
-
-        """
-
+    def CostsOpex(self):
         cost_chemicals = self.chemicals.mass_LiOH_H2O * 10 ** (-3) * self.Costs.cost_LiOH_H2O + \
-                         self.chemicals.mass_aluminium_hydroxide * 10 ** (-3) * self.Costs.cost_aluminium_hydroxide + \
-                         self.chemicals.mass_HCl * self.Costs.cost_HCl
+                         self.chemicals.mass_aluminium_hydroxide * 10**(-3) * self.Costs.cost_aluminium_hydroxide +\
+                         self.chemicals.mass_HCl * 10 ** (-3) * self.Costs.cost_HCl + \
+                         self.reactant_flow.LC_processing_reactants['Na2CO3'] * self.Costs.cost_Na2CO3 + \
+                         self.reactant_flow.LC_purification_reactants['CO2'] * self.Costs.cost_CO2_high
 
-        cost_water = self.water_usage * self.Costs.cost_water
+        cost_water = self.water.total_water_usage * self.Costs.cost_water
 
-        cost_electricity = self.Costs.cost_electricity * self.energy_df['sum'].loc['Sorbent_Synthesis']
+        cost_electricity = self.Costs.cost_electricity * self.energy.energy_df['sum'].loc['Geothermal_LDH']
 
-        total_costs_chemicals_and_utility = cost_electricity + cost_water + cost_chemicals
+        cost_operating_labour = self.worker.no_operators * self.worker.annual_wage
 
-        return total_costs_chemicals_and_utility
+        # source: Huang 2021
+
+        cost_operating_supervision = self.worker.supervision * cost_operating_labour
+
+        cost_quality_control = self.worker.quality_control * cost_operating_labour
+
+        opex_df = pd.DataFrame(data={"chemical_costs": [cost_chemicals],
+                                     "utility_costs": [cost_electricity + cost_water],
+                                     "labour_costs": [cost_operating_labour + cost_operating_supervision +
+                                                      cost_quality_control]},
+                               index=['Geothermal_LDH'])
+        opex_df['sum'] = opex_df.sum(axis=1)
+        return opex_df
+
+
+if __name__ == '__main__':
+    test = LDH_opex()
+    print(test)
