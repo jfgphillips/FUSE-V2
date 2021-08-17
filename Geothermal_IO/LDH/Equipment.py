@@ -1,8 +1,8 @@
 import pandas as pd
 
-class SorbentSynthesisEquipment(object):
+class Equipment_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'\Users\chant\PycharmProjects\FUSE-V2\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
                                 sheet_name="equipment", skiprows=1)
         self.df.set_index('key', inplace=True)
         self.reactor_FOB = self.df['FOB'].loc['reactor with agitator']
@@ -48,4 +48,9 @@ def cost_equipment(FOB, CEPCI_base, size_base, size_ref, size_factor):
     CEPCI_ref = 1000
     cost_base = 1.1 * FOB * (CEPCI_base / CEPCI_ref) * (size_base / size_ref)**size_factor
     return cost_base
+
+
+if __name__ == '__main__':
+    test = Equipment_att()
+    print(test)
 

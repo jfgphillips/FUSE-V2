@@ -5,7 +5,7 @@ from calculators import unitConversions
 
 class Impeller_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'\Users\chant\PycharmProjects\FUSE-V2\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
                                 sheet_name='standard_impeller', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.impeller_power_number = self.df['value'].loc['impeller_power_number']
@@ -39,6 +39,10 @@ def StirringEnergySorSyn(impeller_power_number=None, impeller_diameter=None, agi
     stirring_energy_2_kWh = unitConversions.kiloWattHours(stirring_energy_2)
     total_stirring_energy_kWh = sitrring_energy_1_kWh + stirring_energy_2_kWh
     return total_stirring_energy_kWh
+
+if __name__ == '__main__':
+    test = Impeller_att()
+    print(test)
 
 
 

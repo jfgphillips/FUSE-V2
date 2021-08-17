@@ -5,7 +5,7 @@ from molmass import Formula
 
 class SorbentSynthesisChemicals_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'\Users\chant\PycharmProjects\FUSE-V2\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
                                 sheet_name="chemicals_sorbent_synthesis", skiprows=1)
         self.df.set_index('key', inplace=True)
         self.mass_sorbent_year = self.df['value'].loc['mass_sorbent']  # kg/year
@@ -50,6 +50,7 @@ def QReactants(mol_LiOH_H2O=None, hc_LiOH=None, mol_aluminium_hydroxide=None, hc
 
 
 
-# if __name__ == '__main__':
-#    test = SorbentSynthesisChemicals_att()
+if __name__ == '__main__':
+    test = SorbentSynthesisChemicals_att()
+    print(test)
 

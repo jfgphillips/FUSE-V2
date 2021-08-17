@@ -4,7 +4,7 @@ from calculators import unitConversions
 
 class LiCarbonatePurification_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'\Users\chant\PycharmProjects\FUSE-V2\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
                                 sheet_name='Li2CO3_purification', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.CO2_excess = self.df['value'].loc['CO2_excess']
@@ -88,3 +88,7 @@ def Purification_revreaction(Li2CO3_pure=None, CO2_excess=None, Yield=None):
     CO2_mass = unitConversions.solidMass('CO2', CO2_mol)
     reactants = {'impure_Li2CO3': mass_Li2CO3_impure, 'H2O': H2O_mass, 'CO2': CO2_mass}
     return reactants
+
+if __name__ == '__main__':
+    test = LiCarbonatePurification_att()
+    print(test)

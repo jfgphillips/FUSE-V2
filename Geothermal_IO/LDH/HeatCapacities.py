@@ -8,7 +8,7 @@ from calculators import heatCapacities
 
 class HeatCapacities_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'\Users\chant\PycharmProjects\FUSE-V2\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
                                 sheet_name="sorbent_synthesis_reaction", skiprows=1)
         self.df.set_index('key', inplace=True)
         self.temperature = self.df['value'].loc['reaction_temp']

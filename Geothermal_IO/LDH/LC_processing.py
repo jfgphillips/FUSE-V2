@@ -4,7 +4,7 @@ from calculators import unitConversions
 
 class LiCarbonateProcessing_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'\Users\chant\PycharmProjects\FUSE-V2\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
                                 sheet_name='Li2CO3_processing', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.Yield = self.df['value'].loc['yield']
@@ -69,3 +69,7 @@ def Li2CO3_revreaction(Li2CO3=None, Yield = None):
     reactants = {'LiCl':mass_LiCl_tonnes, 'Na2CO3':mass_Na2CO3_tonnes}
     waste = {'NaCl': mass_NaCl}
     return reactants, waste
+
+if __name__ == '__main__':
+    test = LiCarbonateProcessing_att()
+    print(test)
