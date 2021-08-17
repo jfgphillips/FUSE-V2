@@ -1,4 +1,9 @@
-from Geothermal_IO.LDH import *
+from Geothermal_IO.LDH import LC_processing
+from Geothermal_IO.LDH import LC_purification
+from Geothermal_IO.LDH import Column
+from Geothermal_IO.LDH import Brine
+from Geothermal_IO.LDH import Plant
+from Geothermal_IO.LDH import ForwardOsmosis
 from calculators import unitConversions as uC
 
 class ReactantFlow(object):
