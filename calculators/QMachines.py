@@ -44,7 +44,7 @@ def beltConveyor(belt_speed, belt_length, gradient, conveyor_output, drive_train
     H = H_g + H_f  # total lift, H = gradient + length/speed table (.csv file)
     belt_HP = (Q * H) / 33000  # conversion to horse power
     drive_HP = belt_HP / drive_train_efficiency
-    drive_kW = drive_HP * 0.746
+    drive_kW = drive_HP * 0.746 # horespower to kW
 
     return drive_kW
 
