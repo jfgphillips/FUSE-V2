@@ -4,7 +4,7 @@ from Geothermal_IO.LDH import Column_Washing
 from Geothermal_IO.LDH import Column_Stripping
 from Geothermal_IO.LDH import LC_processing
 from Geothermal_IO.LDH import LC_purification
-from Geothermal_extraction import Reactant_flow
+from Geothermal_extraction.LDH import Reactant_flow
 
 class Water_att(object):
     def __init__(self):
@@ -14,7 +14,7 @@ class Water_att(object):
         self.LC_processing = LC_processing.LiCarbonateProcessing_att()
         self.LC_purification = LC_purification.LiCarbonatePurification_att()
         self.reactant_flow = Reactant_flow.ReactantFlow()
-        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'../../data/LDH_attributes.xlsx',
                                 sheet_name='water', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.sor_syn_washing = self.df['value'].loc['sor_syn_washing']

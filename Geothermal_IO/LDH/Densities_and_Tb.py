@@ -2,7 +2,7 @@
 
 class DensitiesSorbentSynthesis(object):
     def __init__(self):
-        # densitites from PubChem database
+        # densities from PubChem database
         self.density_LiOH = 2.54   # g/cm^3
         self.density_LiOH_H2O = 1.51  # g/cm^3
         self.density_aluminium_hydroxide = 2.42  # g/cm^3

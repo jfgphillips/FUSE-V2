@@ -25,34 +25,24 @@ class ReactantFlow(object):
                                   'Yield_backward': self.LC_purification.Yield_backward}
         self.LC_purification_reactants, self.LC_purification_intermediate, self.LC_purification_product, \
         self.LC_purification_by_products = LC_purification.Purification_raction(**LC_purification_kwargs)
-        self.print_dict_production = self.dict_reactants_processing()
-        self.print_dict_purification = self.dict_reactants_purification()
+        return
 
 
     def __repr__(self):
-        newline = "\n"
-        brine_flow_day_l = self.plant.brine_flow_day * 10**(3)
-        print_statement_1 = f'For a daily brine flow of {brine_flow_day_l} l per day the total amount of pure lithium ' \
-                          f'carbonate produced is ' \
-                          f'{uC.tonnes(self.LC_purification_product["pure Li2CO3"])} tpy \n' \
-                          f'The amount of reactants required are for the production of Li3CO3 from the extracted LiCl are:'
-        print_format_1 = f'{newline.join(f"{key}: {uC.tonnes(value)} tonnes" for key, value in self.print_dict_production.items())} '
-        print_statement_2 = f'The amount of reactants required for the purification process are:'
-        print_format_2 = f'{newline.join(f"{key}: {uC.tonnes(value)} tonnes" for key, value in self.print_dict_purification.items())} '
-        output = f"{print_statement_1}\n" \
-                 f"{print_format_1}\n" \
-                 f"{print_statement_2}\n" \
-                 f"{print_format_2}"
+
+        brine_flow_day_l = self.plant.brine_flow_day * 10 ** (3)
+        print_rf = f'For a daily brine flow of {brine_flow_day_l} l per day the total amount of pure lithium ' \
+                   f'carbonate produced is: ' \
+                   f'{uC.tonnes(self.LC_purification_product["pure Li2CO3"])} tpy \n' \
+                   f'The amount of reactants required are for the production of Li3CO3 from the extracted LiCl are: \n'\
+                   f'LiCl: {uC.tonnes(self.LC_processing_reactants["LiCl"])} tonnes \n' \
+                   f'Na2CO3: {uC.tonnes(self.LC_processing_reactants["Na2CO3"])} tonnes \n' \
+                   f'The amount of reactants required for the purification process are: \n' \
+                   f'H2O: {uC.tonnes(self.LC_purification_reactants["H2O"])} tonnes \n' \
+                   f'CO2: {uC.tonnes(self.LC_purification_reactants["CO2"])} tonnes'
+        output = f"{print_rf}"
         return output
 
-
-    def dict_reactants_processing(self):
-        dict_processing = {**self.LC_processing_reactants}
-        return dict_processing
-
-    def dict_reactants_purification(self):
-        dict_purification = {**self.LC_purification_reactants}
-        return dict_purification
 
 
 if __name__ == '__main__':

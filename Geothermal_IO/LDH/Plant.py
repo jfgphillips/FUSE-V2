@@ -3,7 +3,7 @@ import pandas as pd
 
 class Plant_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'../../data/LDH_attributes.xlsx',
                                 sheet_name='plant', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.brine_flow_day = self.df['value'].loc['brine_flow_day']  # m^3/day

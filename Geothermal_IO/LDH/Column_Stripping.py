@@ -2,7 +2,7 @@ import pandas as pd
 
 class ColumnExtractionStripping(object):
     def __init__(self):
-        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'../../data/LDH_attributes.xlsx',
                                 sheet_name='stripping', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.H2O_stripping = self.df['value'].loc['H2O_stripping']  #l

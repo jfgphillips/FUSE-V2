@@ -2,7 +2,7 @@ import pandas as pd
 
 class ColumnExtractionWashing(object):
     def __init__(self):
-        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'../../data/LDH_attributes.xlsx',
                                 sheet_name='washing', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.sorbent = self.df['value'].loc['sorbent']

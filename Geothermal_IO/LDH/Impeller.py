@@ -5,7 +5,7 @@ from calculators import unitConversions
 
 class Impeller_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'../../data/LDH_attributes.xlsx',
                                 sheet_name='standard_impeller', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.impeller_power_number = self.df['value'].loc['impeller_power_number']

@@ -4,7 +4,7 @@ from calculators import unitConversions
 
 class LiCarbonatePurification_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'../../data/LDH_attributes.xlsx',
                                 sheet_name='Li2CO3_purification', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.CO2_excess = self.df['value'].loc['CO2_excess']

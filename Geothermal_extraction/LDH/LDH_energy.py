@@ -3,7 +3,7 @@ from calculators import unitConversions as uC
 from calculators import QProcesses
 from calculators import QReactors
 from Geothermal_IO.LDH import *
-from Geothermal_extraction import Reactant_flow
+from Geothermal_extraction.LDH import Reactant_flow
 
 
 class LDH_energy(object):

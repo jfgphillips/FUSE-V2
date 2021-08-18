@@ -4,7 +4,7 @@ from calculators import unitConversions
 
 class LiCarbonateProcessing_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'../../data/LDH_attributes.xlsx',
                                 sheet_name='Li2CO3_processing', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.Yield = self.df['value'].loc['yield']

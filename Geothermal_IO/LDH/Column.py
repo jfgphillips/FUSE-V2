@@ -3,7 +3,7 @@ import math
 
 class Column_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'../../data/LDH_attributes.xlsx',
                                 sheet_name='column', skiprows=1)
         self.df.set_index('key', inplace=True)
         self.column_length = self.df['value'].loc['length']

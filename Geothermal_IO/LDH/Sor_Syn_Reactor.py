@@ -3,7 +3,7 @@ from calculators import QReactors
 
 class BatchReactor_att(object):
     def __init__(self):
-        self.df = pd.read_excel(r'..\..\data\LDH_attributes.xlsx',
+        self.df = pd.read_excel(r'../../data/LDH_attributes.xlsx',
                                 sheet_name="sorbent_synthesis_reaction", skiprows=1)
         self.df.set_index('key', inplace=True)
         self.reaction_temp = self.df['value'].loc['reaction_temp']
