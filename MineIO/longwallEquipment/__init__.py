@@ -1,1 +1,1 @@
-__all__ = ['borerMiner', 'longwallSheerer', 'miscSupportEqmt', 'shuttleCar', 'stageLoader']
+__all__ = ['borerMiner', 'longwallSheerer', 'miscSupportEqmt', 'stageLoader']
