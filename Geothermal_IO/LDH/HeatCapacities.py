@@ -52,6 +52,10 @@ class HeatCapacities_att(object):
         self.hc_CO2_precipitation = heatCapacities.Schomate_equation(**hc_CO2_precipitation_kwargs)
         return
 
+def hC_LC_purification(total_mass_mixture=None, mass_Li2CO3=None,  mass_H2O=None, Hc_Li2CO3=None, Hc_H2O=None):
+    hC = ((mass_Li2CO3/total_mass_mixture) * (Hc_Li2CO3) + ((mass_H2O/total_mass_mixture) * Hc_H2O))
+    return hC
+
 
 if __name__ == '__main__':
    test = HeatCapacities_att()

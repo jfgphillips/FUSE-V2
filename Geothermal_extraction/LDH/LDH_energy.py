@@ -2,6 +2,7 @@ import pandas as pd
 from calculators import unitConversions as uC
 from calculators import QProcesses
 from calculators import QReactors
+from calculators import QMachines
 from Geothermal_IO.LDH import *
 from Geothermal_extraction.LDH import Reactant_flow
 
@@ -23,6 +24,7 @@ class LDH_energy(object):
         self.brine = Brine.Brine_att()
         self.washing = Column_Washing.ColumnExtractionWashing()
         self.stripping = Column_Stripping.ColumnExtractionStripping()
+        self.BC = Belt_conveyor.BeltConveyor_att()
         self.total_mass_mix_1_sor_syn = self.chemicals.mass_LiOH_H2O + self.chemicals.mass_aluminium_hydroxide \
                                         + self.chemicals.mass_H2O
         self.total_mass_mix_2_sor_syn = self.total_mass_mix_1_sor_syn + self.chemicals.mass_HCl
@@ -81,6 +83,18 @@ class LDH_energy(object):
                                      'Tb_Li2CO3': self.densities.Tb_Li2CO3,
                                      'Tb_H2O': self.densities.Tb_H2O}
         self.Tb_LC_purification = Densities_and_Tb.Tb_LC_purification(**Tb_LC_purification_kwargs)
+        hC_LC_purification_kwargs = {'total_mass_mixture': self.total_mass_drying_LC_purification,
+                                     'mass_Li2CO3': self.reactant_flow.LC_purification_reactants['impure Li2CO3'],
+                                     'mass_H2O': self.reactant_flow.LC_purification_reactants['H2O'],
+                                     'Hc_Li2CO3': self.hC.hc_Li2CO3_precipitation,
+                                     'Hc_H2O': self.hC.hc_H2O}
+        self.hC_LC_purification = HeatCapacities.hC_LC_purification(**hC_LC_purification_kwargs)
+        Hvap_LC_purification_kwargs = {'total_mass_mixture': self.total_mass_drying_LC_purification,
+                                       'mass_Li2CO3': self.reactant_flow.LC_purification_reactants['impure Li2CO3'],
+                                       'mass_H2O': self.reactant_flow.LC_purification_reactants['H2O'],
+                                       'Hvap_Li2CO3': self.HV.Hvap_Li2CO3,
+                                       'Hvap_H2O': self.HV.Hvap_H2O}
+        self.Hvap_LC_purification = HeatVaporization.Hvap_LC_purification(**Hvap_LC_purification_kwargs)
         self.energy_df = self.EnergyConsumption()
         return
 
@@ -128,7 +142,7 @@ class LDH_energy(object):
 
         q_reactor_sor_syn = Sor_Syn_Reactor.QReactor(**req_reactor_sor_syn_kwargs)
 
-        q_reaction_sor_syn = uC.kiloWattHours(q_reactants_sor_syn) + q_reactor_sor_syn * 10**(-3)
+        q_reaction_sor_syn = q_reactants_sor_syn + (q_reactor_sor_syn * 10**(-3))
 
 
         req_stir_energy_sor_syn_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
@@ -152,7 +166,6 @@ class LDH_energy(object):
 
         # TODO implement stirring energy for washing and stripping
         # assuming the brine has the density of water
-        # TODO implement transportation energy for solids
 
         pumping_energy_column_extraction = uC.kiloWattHours(QProcesses.pumping_energy
                                                             (((self.plant.brine_flow_day / 24) *
@@ -163,16 +176,16 @@ class LDH_energy(object):
 
         pumping_energy_effluent = uC.kiloWattHours(QProcesses.pumping_energy(((self.plant.brine_flow_day / 24) *
                                                    self.plant.plant_uptime) +
-                                                (uC.tonnes((self.washing.H2O_washing_total +
-                                                   self.stripping.H2O_stripping_total) * 10**3 +
-                                                   self.washing.total_mass_NaCl -
-                                                   self.stripping.LiCl_sol_output * 10**3 *
-                                                   self.density_LiCl_sol_stripping))))
+                                                   (uC.tonnes((self.washing.H2O_washing_total +
+                                                               self.stripping.H2O_stripping_total) * 10**3 +
+                                                              self.washing.total_mass_NaCl -
+                                                              self.stripping.LiCl_sol_output * 10**3 *
+                                                              self.density_LiCl_sol_stripping))))
 
         filtration_energy_FO = QProcesses.filtration_energy(self.FO.LiCl_sol_output * 10**(-3))
 
         pumping_energy_FO = uC.kiloWattHours(QProcesses.pumping_energy(uC.tonnes(self.stripping.LiCl_sol_output *
-                                            10**3 * self.density_LiCl_sol_stripping)))
+                                             10**3 * self.density_LiCl_sol_stripping)))
 
         req_reactants_LC_processing_kwargs = {'mol_LiCl': uC.solidMol
                                               ('LiCl', self.reactant_flow.LC_processing_reactants['LiCl']),
@@ -192,7 +205,7 @@ class LDH_energy(object):
 
         q_reactor_LC_processing = QReactors.batchReactor(**q_reactor_LC_processing_kwargs)
 
-        q_reaction_LC_processing = uC.kiloWattHours(q_reactants_LC_processing) + q_reactor_LC_processing[0] * 10**(-3)
+        q_reaction_LC_processing = q_reactants_LC_processing + (q_reactor_LC_processing[0] * 10**(-3))
 
         req_stir_energy_LC_processing_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
                                                 'impeller_diameter': self.impeller.impeller_diameter,
@@ -235,7 +248,7 @@ class LDH_energy(object):
 
         q_reactor_LC_carbonation = QReactors.batchReactor(**req_reactor_LC_carbonation_kwargs)
 
-        q_reaction_LC_carbonation = uC.kiloWattHours(q_reactants_LC_carbonation) + q_reactor_LC_carbonation[0] * 10**(-3)
+        q_reaction_LC_carbonation = q_reactants_LC_carbonation + (q_reactor_LC_carbonation[0] * 10**(-3))
 
         req_stir_energy_carbonation_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
                                               'impeller_diameter': self.impeller.impeller_diameter,
@@ -256,8 +269,8 @@ class LDH_energy(object):
                                                        self.reactant_flow.LC_purification_reactants['CO2']))
 
         pumping_energy_carbonation_processing = uC.kiloWattHours(QProcesses.pumping_energy(uC.tonnes
-                                                                (self.reactant_flow.LC_purification_intermediate
-                                                                 ['LiHCO3'])))
+                                                                 (self.reactant_flow.LC_purification_intermediate
+                                                                  ['LiHCO3'])))
 
         req_reactants_LC_precipitation_kwargs = {'mol_Li2CO3': uC.solidMol
                                                  ('Li2CO3', self.reactant_flow.LC_purification_intermediate['LiHCO3']),
@@ -281,8 +294,7 @@ class LDH_energy(object):
 
         q_reactor_LC_precipitation = QReactors.batchReactor(**req_reactor_LC_precipitation_kwargs)
 
-        q_reaction_LC_precipitation = uC.kiloWattHours(q_reactants_LC_precipitation) + \
-                                      q_reactor_LC_precipitation[0] * 10**(-3)
+        q_reaction_LC_precipitation = q_reactants_LC_precipitation + (q_reactor_LC_precipitation[0] * 10**(-3))
 
         req_stir_energy_precipitation_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
                                                 'impeller_diameter': self.impeller.impeller_diameter,
@@ -297,11 +309,11 @@ class LDH_energy(object):
         filtration_energy_precipitation = QProcesses.filtration_energy\
             (uC.tonnes(self.reactant_flow.LC_purification_intermediate['LiHCO3']))
 
-        req_drying_energy_LC_processing_kwargs = {'heat_capacity_solution': self.densities.Tb_H2O,
+        req_drying_energy_LC_processing_kwargs = {'heat_capacity_solution': self.hC_LC_purification,
                                                   'mass_solution': self.total_mass_drying_LC_purification,
                                                   'boiling_temperature': self.Tb_LC_purification,
                                                   'starting_temperature': self.LC_purification.washing_temperature,
-                                                  'evaporation_enthalpy': self.HV.Hvap_H2O,
+                                                  'evaporation_enthalpy': self.Hvap_LC_purification,
                                                   'mass_vapour': self.LC_purification.mass_difference_evaporation}
 
         drying_energy_LC_purification = uC.kiloWattHours(QProcesses.drying_energy
@@ -315,6 +327,9 @@ class LDH_energy(object):
 
         pumping_energy_LC_purification_wash = uC.kiloWattHours(QProcesses.pumping_energy
                                                                (uC.tonnes(self.water.LC_purification_washing)))
+
+        belt_conveyor_energy_average = QMachines.beltConveyor(self.BC.belt_speed, self.BC.belt_length, self.BC.gradient,
+                                                              self.BC.output, self.BC.efficiency)
 
         energy_df = pd.DataFrame(data={"Reaction energy": [q_reaction_sor_syn + q_reaction_LC_processing +
                                                            q_reaction_LC_carbonation + q_reaction_LC_precipitation +
@@ -333,7 +348,8 @@ class LDH_energy(object):
                                                                  pumping_energy_carbonation +
                                                                  pumping_energy_carbonation_processing +
                                                                  pumping_energy_precipitation_filtration +
-                                                                 pumping_energy_LC_purification_wash]},
+                                                                 pumping_energy_LC_purification_wash,
+                                                                 belt_conveyor_energy_average]},
                                  index=['Geothermal_LDH'])
         energy_df['sum'] = energy_df.sum(axis=1)
 

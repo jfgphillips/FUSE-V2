@@ -15,7 +15,7 @@ class ReactantFlow(object):
         self.plant = Plant.Plant_att()
         self.FO = ForwardOsmosis.ForwardOsmosis()
         self.LiCl_extracted = uC.tonnes(self.brine.Li_conc_brine * ((self.plant.brine_flow_day * 10**(3))/ 24) *\
-                              self.column.Li_recovery * self.FO.efficiency * self.plant.plant_uptime)
+                              self.column.Li_recovery * self.FO.efficiency * self.plant.plant_uptime)  # in
         LC_processing_kwargs = {'LiCl': self.LiCl_extracted, 'Yield': self.LC_processing.Yield}
         self.LC_processing_reactants, self.LC_processing_product, self.LC_processing_waste = \
             LC_processing.Li2CO3_reaction(**LC_processing_kwargs)
