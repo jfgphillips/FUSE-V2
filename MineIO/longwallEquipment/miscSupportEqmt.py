@@ -9,7 +9,8 @@ class afc_att:
         df = pd.read_excel(r'../data/mine_attributes.xlsx', sheet_name="afc", skiprows=1)
 
     def qMachine(self):
-        return
+        energyConsumption = 0
+        return energyConsumption
 
 
 class flatLinkChain_att:

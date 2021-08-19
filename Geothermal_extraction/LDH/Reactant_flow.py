@@ -1,4 +1,4 @@
-from Geothermal_IO.LDH import LC_processing
+from Geothermal_IO.LDH import LC_processing # TODO: ask also why the * is not used here
 from Geothermal_IO.LDH import LC_purification
 from Geothermal_IO.LDH import Column
 from Geothermal_IO.LDH import Brine
