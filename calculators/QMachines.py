@@ -32,7 +32,7 @@ def beltConveyor(belt_speed, belt_length, gradient, conveyor_output, drive_train
 
     :return: drive power requirements for belt conveyor
     """
-    belt_df = pd.read_csv('../equivalent_lift_matrix.csv')
+    belt_df = pd.read_csv('../../data/equivalent_lift_matrix.csv')
     belt_df.set_index('belt speed feet per minute', inplace=True)
 
     column = str(belt_length)

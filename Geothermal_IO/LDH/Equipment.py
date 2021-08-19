@@ -16,7 +16,7 @@ class Equipment_att(object):  # TODO: Chantal ask if there is a more efficient w
         self.df_full.set_index('key', inplace=True)
         self.df = self.df_full[self.df_full.index.notnull()]
         idx_names = list(self.df.index)
-        print(idx_names)
+        #print(idx_names)
         bad_idx = ['CEPCI_base', 'Belt_Conveyor']
         machine_names = list(set(idx_names) - set(bad_idx))
         dict_titles = ["FOB", 'size_base', 'size_ref', 'n']
@@ -30,7 +30,7 @@ class Equipment_att(object):  # TODO: Chantal ask if there is a more efficient w
             else:
                 self.equipment_dict[i] = default_values
 
-        print(self.equipment_dict['Pipes'])
+        #print(self.equipment_dict['Pipes'])
 
 
         """
