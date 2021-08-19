@@ -72,7 +72,7 @@ def filtration_energy(tonnes):
     return(Q_filtration)
 
 
-def grinding_energy(tonnes):
+def grinding_energy(tonnes): # TODO: add a risk variable
     """
     source: Huang 2021 life cycle assessment and techno-echonomic assessment of lithium recovery from geothermal brine
     :param tonnes: mass of the mixture in tonnes
