@@ -13,11 +13,13 @@ class EnergyPlot(object):
     def energy_boxplot(self):
         fields = ['Reaction energy', 'Processing energy', 'Transportation energy']
         colours = ['#88CCEE', '#CC6677', '#DDCC77']
+        # print(self.energy_data[""])
 
         myplot = self.energy_data.plot(use_index=True,
                                        kind="bar",
                                        stacked=True,
                                        color=colours, y=fields)
+
         myplot.set_ylabel('Energy (kWh/tonnes)')
         plt.title('Extraction technique')
         plt.xticks(rotation=0)

@@ -1,5 +1,6 @@
 from Geothermal_IO.LDH import *
 
+
 class LDH_capex(object):
     def __init__(self):
         self.equipment = Equipment.Equipment_att()
@@ -8,9 +9,7 @@ class LDH_capex(object):
         self.FCC, self.TCI = self.Capital_Costs()
         return
 
-
     def __repr__(self):
-
         print_capex = f'The total CAPEX for the addition of a lithium chloride extraction and lithium carbonate ' \
                       f'production plant to a already existing geothermal power plant are:\n' \
                       f'{self.TCI} $'
@@ -18,8 +17,20 @@ class LDH_capex(object):
         output = f"{print_capex}"
         return output
 
-
     def Equipment_costs(self):
+
+        cost_dict = {}
+        for equipment_item, kwargs in self.equipment.equipment_dict.items():
+            if equipment_item == "Pipes":
+                temp_kwargs = {key:val for key, val in kwargs.items() if key != 'amount'}
+                cost_dict[f'cost_{equipment_item}'] = Equipment.cost_equipment(**temp_kwargs)
+            else:
+                cost_dict[f'cost_{equipment_item}'] = Equipment.cost_equipment(**kwargs)
+
+        print(cost_dict)
+
+
+        """
         reactor_1_kwargs = {'FOB': self.equipment.reactor_1_FOB,
                             'CEPCI_base': self.equipment.CEPCI_base,
                             'size_base': self.equipment.reactor_1_size_base,
@@ -117,13 +128,13 @@ class LDH_capex(object):
                         'size_ref': self.equipment.pipes_size_ref,
                         'size_factor': self.equipment.pipes_size_factor}
         cost_pipes = Equipment.cost_equipment(**pipes_kwargs)
+        """
 
-        equipment_cost = cost_reactor_1 + cost_reactor_2 + cost_reactor_3 + cost_filter_1 + cost_filter_2 + \
-                         cost_grinder + cost_EC + cost_FO + cost_IEC + cost_resin + cost_dryer + cost_pumps + \
-                         cost_valves + cost_pipes
+        equipment_cost = 0# cost_reactor_1 + cost_reactor_2 + cost_reactor_3 + cost_filter_1 + cost_filter_2 + \
+                          # cost_grinder + cost_EC + cost_FO + cost_IEC + cost_resin + cost_dryer + cost_pumps + \
+                          # cost_valves + cost_pipes
 
         return equipment_cost
-
 
     def Capital_Costs(self):
         cost_installation = self.capex.installation * self.equipment_cost
@@ -149,9 +160,3 @@ class LDH_capex(object):
 if __name__ == '__main__':
     test = LDH_capex()
     print(test)
-
-
-
-
-
-
