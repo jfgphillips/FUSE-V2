@@ -102,11 +102,11 @@ class LDH_energy(object):
 
         total_energy_consumption = self.energy_df['sum'].loc['Geothermal_LDH']
 
-        print_emissions = f'The total emissions to produce {self.reactant_flow.LC_purification_product["pure Li2CO3"]} '\
+        print_emissions = f'The total energy required to produce {self.reactant_flow.LC_purification_product["pure Li2CO3"]} '\
                           f'kg battery grade lithium carbonate per year from a brine flow of ' \
                           f'{self.plant.brine_flow_day} m^3 per day \nwith a LiCL concentration of ' \
                           f'{self.brine.Li_conc_brine} g/L are: {total_energy_consumption} kWh\n' \
-                          f'The emissions per kg of lithium carbonate are: ' \
+                          f'The energy required per kg of lithium carbonate are: ' \
                           f'{total_energy_consumption / self.reactant_flow.LC_purification_product["pure Li2CO3"]} kWh/kg'
 
         output = f"{print_emissions}"
@@ -348,7 +348,7 @@ class LDH_energy(object):
                                                                  pumping_energy_carbonation +
                                                                  pumping_energy_carbonation_processing +
                                                                  pumping_energy_precipitation_filtration +
-                                                                 pumping_energy_LC_purification_wash,
+                                                                 pumping_energy_LC_purification_wash +
                                                                  belt_conveyor_energy_average]},
                                  index=['Geothermal_LDH'])
         energy_df['sum'] = energy_df.sum(axis=1)
