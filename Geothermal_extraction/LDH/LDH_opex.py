@@ -3,11 +3,13 @@ from Geothermal_IO.LDH import *
 from Geothermal_extraction.LDH import LDH_energy
 from Geothermal_extraction.LDH import Reactant_flow
 from Geothermal_extraction.LDH import LDH_capex
+from Geothermal_extraction.LDH import SorbentSynthesis
 
 
 class LDH_opex(object):
     def __init__(self):
         self.chemicals = Sor_Syn_Chemicals.SorbentSynthesisChemicals_att()
+        self.sor_syn = SorbentSynthesis.SorbentSynthesis()
         self.reactant_flow = Reactant_flow.ReactantFlow()
         self.plant = Plant.Plant_att()
         self.opex = Opex.Costs_att()
@@ -34,9 +36,14 @@ class LDH_opex(object):
         return output
 
     def CostsOpex(self):
-        cost_chemicals = self.chemicals.mass_LiOH_H2O * 10 ** (-3) * self.opex.cost_LiOH_H2O + \
-                         self.chemicals.mass_aluminium_hydroxide * 10**(-3) * self.opex.cost_aluminium_hydroxide +\
-                         self.chemicals.mass_HCl * 10 ** (-3) * self.opex.cost_HCl + \
+        """
+        source: Huang 2021
+        :return: total costs of direct costs (chemicals, water, electricity, labour) indirect costs and
+         general costs per year operation in $
+        """
+        cost_chemicals = self.sor_syn.mass_LiOH_H2O * 10 ** (-3) * self.opex.cost_LiOH_H2O + \
+                         self.sor_syn.mass_aluminium_hydroxide * 10**(-3) * self.opex.cost_aluminium_hydroxide +\
+                         self.sor_syn.mass_HCl * 10 ** (-3) * self.opex.cost_HCl + \
                          self.reactant_flow.LC_processing_reactants['Na2CO3'] * self.opex.cost_Na2CO3 + \
                          self.reactant_flow.LC_purification_reactants['CO2'] * self.opex.cost_CO2_low
 

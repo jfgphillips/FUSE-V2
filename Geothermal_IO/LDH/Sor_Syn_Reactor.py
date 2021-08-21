@@ -17,11 +17,20 @@ class BatchReactor_att(object):
 
 def QReactor(reaction_temperature=None, reaction_time_1=None, reaction_time_2=None, surface_area=None,
              thermal_conductivity=None, wall_thickness=None, liq_density_1=None, liq_density_2=None):
-        """"
-        Source: Sharma 2020
+        """
+            Source: Sharma 2020
         Reaction in two steps:
         q_reactor_1 = first step of reaction process: mixing and heating LiOH*H2O, Al(OH)3 and H2O
         q_reactor_2 = second step of reaction process: slowly adding HCl to the reaction mixture
+        :param reaction_temperature: in K
+        :param reaction_time_1: in h
+        :param reaction_time_2: in h
+        :param surface_area: in m^2
+        :param thermal_conductivity: in W/(m*K)
+        :param wall_thickness: in m
+        :param liq_density_1: density if mixture 1 in kg/l
+        :param liq_density_2: density in mixture 2 in kg/l
+        :return:
         """
         req_reactor_1_kwargs = {'reaction_temperature': reaction_temperature,
                                 'reaction_time': reaction_time_1,

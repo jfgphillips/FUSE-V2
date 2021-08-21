@@ -16,6 +16,10 @@ class Column_att(object):
         return
 
     def Bed_volume(self):
+        """
+        :return: Bed volume of the column to estimate brine flow rate, washing flow rate and stripping flow rate
+        for column extraction
+        """
         bed_volumn = self.column_length * math.pi * self.column_diameter**2
         return bed_volumn
 

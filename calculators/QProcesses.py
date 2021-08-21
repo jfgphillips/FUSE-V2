@@ -12,7 +12,7 @@ def stirring_energy(impeller_power_number=None,
     :param impeller_diameter: diameter of the impeller
     :param agitator_rotational_speed: rotational speed of the agitator
     :param density: density of the reaction mixture to be stirred
-    :param stirring_time: stirring time of the
+    :param stirring_time: stirring time of the mixture
     :param efficiency: efficiency of the impeller
     :return: stirring energy (E_stirr) in Joules
     """

@@ -107,7 +107,7 @@ def cost_equipment(FOB=None, CEPCI_base=None, size_base=None, size_ref=None, n=N
     Source: Huang 2021, Life Cycle Assessment and Techno-Economic Assessment of Lithium Recovery from Geothermal
     Brines, Supporting Information
     Including 10% increase for delivery cost
-    :return:
+    :return: total cost of the equipment used in the geothermal Li extraction plant
     """
     CEPCI_ref = 1000
     cost_base = 1.1 * FOB * (CEPCI_base / CEPCI_ref) * (size_base / size_ref) ** n

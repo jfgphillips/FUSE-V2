@@ -1,1 +1,1 @@
-__all__ = ['LDH_energy', 'LDH_opex', 'Reactant_flow']
+__all__ = ['LDH_energy', 'LDH_opex', 'Reactant_flow', 'LDH_capex', 'SorbentSynthesis', 'Plot']

@@ -14,8 +14,8 @@ class ReactantFlow(object):
         self.brine = Brine.Brine_att()
         self.plant = Plant.Plant_att()
         self.FO = ForwardOsmosis.ForwardOsmosis()
-        self.LiCl_extracted = uC.tonnes(self.brine.Li_conc_brine * ((self.plant.brine_flow_day * 10**(3))/ 24) *\
-                              self.column.Li_recovery * self.FO.efficiency * self.plant.plant_uptime)  # in
+        self.LiCl_extracted = self.brine.Li_conc_brine * ((self.plant.brine_flow_day * 10**3)/ 24) *\
+                              self.column.Li_recovery * self.FO.efficiency * self.plant.plant_uptime  # in ton
         LC_processing_kwargs = {'LiCl': self.LiCl_extracted, 'Yield': self.LC_processing.Yield}
         self.LC_processing_reactants, self.LC_processing_product, self.LC_processing_waste = \
             LC_processing.Li2CO3_reaction(**LC_processing_kwargs)
@@ -30,7 +30,7 @@ class ReactantFlow(object):
 
     def __repr__(self):
 
-        brine_flow_day_l = self.plant.brine_flow_day * 10 ** (3)
+        brine_flow_day_l = self.plant.brine_flow_day * 10 ** 3
         print_rf = f'For a daily brine flow of {brine_flow_day_l} l per day the total amount of pure lithium ' \
                    f'carbonate produced is: ' \
                    f'{uC.tonnes(self.LC_purification_product["pure Li2CO3"])} tpy \n' \
@@ -38,8 +38,9 @@ class ReactantFlow(object):
                    f'LiCl: {uC.tonnes(self.LC_processing_reactants["LiCl"])} tonnes \n' \
                    f'Na2CO3: {uC.tonnes(self.LC_processing_reactants["Na2CO3"])} tonnes \n' \
                    f'The amount of reactants required for the purification process are: \n' \
-                   f'H2O: {uC.tonnes(self.LC_purification_reactants["H2O"])} tonnes \n' \
-                   f'CO2: {uC.tonnes(self.LC_purification_reactants["CO2"])} tonnes'
+                   f'CO2: {uC.tonnes(self.LC_purification_reactants["CO2"])} tonnes \n' \
+                   f'H2O: {self.LC_purification_reactants["H2O"] * 10**(-3)} l'
+
         output = f"{print_rf}"
         return output
 

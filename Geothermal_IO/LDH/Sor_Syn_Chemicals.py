@@ -15,24 +15,6 @@ class SorbentSynthesisChemicals_att(object):
         self.mol_ratio_H2O = self.df['value'].loc['mol_ratio_DI']
         self.mol_ratio_HCl = self.df['value'].loc['mol_ratio_HCl']
         self.mol_ratio_LiCl = self.mol_ratio_LiOH_H2O
-        self.RMM_LiOH_H2O = Formula('LiOH').mass + Formula('H2O').mass
-        self.RMM_aluminium_hydroxide = Formula('Al(OH)3').mass
-        self.RMM_H2O = Formula('H2O').mass
-        self.RMM_HCl = Formula('HCl').mass
-        self.RMM_LiCl = Formula('LiCl').mass
-        self.mass_sorbent_grams = self.mass_sorbent_year * 10**3
-        self.RMM_sorbent = ((self.mol_ratio_LiCl * self.RMM_LiCl) +
-                            (self.mol_ratio_aluminium_hydroxide * self.RMM_aluminium_hydroxide) +
-                            (self.mol_ratio_H2O * self.RMM_H2O))
-        self.mol_sorbent = self.mass_sorbent_grams / self.RMM_sorbent
-        self.mol_LiOH_H2O = (self.mol_ratio_LiOH_H2O * self.mol_sorbent) / self.Yield
-        self.mass_LiOH_H2O = (Formula('LiCl').mass + Formula('H2O').mass) * self.mol_ratio_LiOH_H2O
-        self.mol_aluminium_hydroxide = (self.mol_ratio_aluminium_hydroxide * self.mol_sorbent) / self.Yield
-        self.mass_aluminium_hydroxide = unitConversions.solidMass('Al(OH)3', self.mol_aluminium_hydroxide)
-        self.mol_H2O = (self.mol_ratio_H2O * self.mol_sorbent) / self.Yield
-        self.mass_H2O = unitConversions.solidMass('H2O', self.mol_H2O)
-        self.mol_HCl = (self.mol_ratio_HCl * self.mol_sorbent) / self.Yield
-        self.mass_HCl = unitConversions.solidMass('HCl', self.mol_HCl)
         return
 
 def QReactants(mol_LiOH_H2O=None, hc_LiOH=None, mol_aluminium_hydroxide=None, hc_aluminium_hydroxide=None,

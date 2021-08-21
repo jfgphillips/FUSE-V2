@@ -22,6 +22,10 @@ class LDH_capex(object):
         return output
 
     def Equipment_costs(self):
+        """
+        Source Huang 2021
+        :return: total cost of equipment for the geothermal lithium extraction plant in $
+        """
 
         cost_dict = {}
         for equipment_item, kwargs in self.equipment.equipment_dict.items():
@@ -37,6 +41,11 @@ class LDH_capex(object):
         return cost_df
 
     def Capital_Costs(self):
+        """
+        Source Huang 2021
+        :return: Total Capital Cost (TCC) and Total Capital Investment (TCI) for the geothermal litium extraction plant
+        in $
+        """
         cost_installation = self.capex.installation * self.equipment_cost
         cost_IC = self.capex.IC * self.equipment_cost  # Instrumentation and Control
         cost_EEM = self.capex.EEM * self.equipment_cost  # Electric Equipment and Control

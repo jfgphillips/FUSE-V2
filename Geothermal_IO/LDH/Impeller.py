@@ -17,6 +17,18 @@ class Impeller_att(object):
 
 def StirringEnergySorSyn(impeller_power_number=None, impeller_diameter=None, agitator_rotational_speed=None,
                    stirring_time_1=None, stirring_time_2=None, efficiency=None, density_1=None, density_2=None):
+    """
+
+    :param impeller_power_number: power number of the impeller (axial flow = 0.79)
+    :param impeller_diameter: diameter of the impeller in m
+    :param agitator_rotational_speed: rotational speed of the agitator in 1/s
+    :param stirring_time_1: stirring time of the mixture 1 (LiOH*H2O, Al(OH)3 and H2O) in s
+    :param stirring_time_2: stirring time of mixture 2 (mixture 1 + HCl) in s
+    :param efficiency: efficiency of the impeller
+    :param density_1: density of mixture 1 in kg/m^3
+    :param density_2: density of mixture 2 in kg/m^3
+    :return: stirring energy of both reaction steps for the sorbent synthesis
+    """
     req_stirring_energy_1_kwargs = {'impeller_power_number': impeller_power_number,
                                     'impeller_diameter': impeller_diameter,
                                     'agitator_rotational_speed': agitator_rotational_speed,
