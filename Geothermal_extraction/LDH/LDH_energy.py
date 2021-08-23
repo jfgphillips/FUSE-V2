@@ -2,7 +2,7 @@ import pandas as pd
 from calculators import unitConversions as uC
 from calculators import QProcesses
 from calculators import QReactors
-# from calculators import QMachines
+from calculators import QMachines
 from Geothermal_IO.LDH import *
 from Geothermal_extraction.LDH import Reactant_flow
 from Geothermal_extraction.LDH import SorbentSynthesis
@@ -111,12 +111,13 @@ class LDH_energy(object):
 
         total_energy_consumption = self.energy_df['sum'].loc['Geothermal_LDH']
 
-        print_emissions = f'The total energy required to produce {self.reactant_flow.LC_purification_product["pure Li2CO3"]} '\
-                          f'kg battery grade lithium carbonate per year from a brine flow of ' \
+        print_emissions = f'The total energy required to produce {uC.tonnes(self.reactant_flow.LC_purification_product["pure Li2CO3"])} '\
+                          f'tonnes battery grade lithium carbonate per year from a brine flow of ' \
                           f'{self.plant.brine_flow_day} m^3 per day \nwith a LiCL concentration of ' \
                           f'{self.brine.Li_conc_brine} g/L are: {total_energy_consumption} kWh\n' \
                           f'The energy required per kg of lithium carbonate are: ' \
-                          f'{total_energy_consumption / self.reactant_flow.LC_purification_product["pure Li2CO3"]} kWh/kg'
+                          f'{total_energy_consumption / (self.reactant_flow.LC_purification_product["pure Li2CO3"]*10**(-3))} ' \
+                          f'kWh/kg'
 
         output = f"{print_emissions}"
 
@@ -345,8 +346,8 @@ class LDH_energy(object):
         pumping_energy_LC_purification_wash = uC.kiloWattHours(QProcesses.pumping_energy
                                                                (uC.tonnes(self.water.LC_purification_washing)))
 
-    #    belt_conveyor_energy_average = QMachines.beltConveyor(self.BC.belt_speed, self.BC.belt_length, self.BC.gradient,
-    #                                                          self.BC.output, self.BC.efficiency)
+        belt_conveyor_energy_average = QMachines.beltConveyor(self.BC.belt_speed, self.BC.belt_length, self.BC.gradient,
+                                                              self.BC.output, self.BC.efficiency)
 
         energy_df = pd.DataFrame(data={"Reaction energy": [q_reaction_sor_syn + q_reaction_LC_processing +
                                                            q_reaction_LC_carbonation + q_reaction_LC_precipitation +
@@ -366,7 +367,8 @@ class LDH_energy(object):
                                                                  pumping_energy_carbonation +
                                                                  pumping_energy_carbonation_processing +
                                                                  pumping_energy_precipitation_filtration +
-                                                                 pumping_energy_LC_purification_wash]},
+                                                                 pumping_energy_LC_purification_wash +
+                                                                 belt_conveyor_energy_average]},
                                  index=['Geothermal_LDH'])
         energy_df['sum'] = energy_df.sum(axis=1)
 
