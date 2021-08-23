@@ -8,7 +8,7 @@ class EnergyPlot(object):
     def __init__(self):
         self.energy = LDH_energy()
         self.rf = Reactant_flow.ReactantFlow()
-        self.energy_data = self.energy.energy_df.div(self.rf.LC_purification_product['pure Li2CO3'])  # energy in kWh/t
+        self.energy_data = self.energy.energy_df / (self.rf.LC_purification_product['pure Li2CO3']) * 365  # energy in kWh/t
         self.LDH_capex = LDH_capex.LDH_capex()
         self.capex_dict = pd.DataFrame.from_dict(self.LDH_capex.equipment_cost_df)
         self.energy_boxplot()

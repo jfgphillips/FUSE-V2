@@ -43,7 +43,7 @@ class LDH_capex(object):
     def Capital_Costs(self):
         """
         Source Huang 2021
-        :return: Total Capital Cost (TCC) and Total Capital Investment (TCI) for the geothermal litium extraction plant
+        :return: Total Capital Cost (TCC) and Total Capital Investment (TCI) for the geothermal lithium extraction plant
         in $
         """
         cost_installation = self.capex.installation * self.equipment_cost

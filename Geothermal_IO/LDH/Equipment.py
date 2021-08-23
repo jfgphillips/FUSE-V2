@@ -17,7 +17,7 @@ class Equipment_att(object):  # TODO: Chantal ask if there is a more efficient w
         self.df = self.df_full[self.df_full.index.notnull()]
         idx_names = list(self.df.index)
         #print(idx_names)
-        bad_idx = ['CEPCI_base', 'Belt_Conveyor']
+        bad_idx = ['CEPCI_base']
         machine_names = list(set(idx_names) - set(bad_idx))
         dict_titles = ["FOB", 'size_base', 'size_ref', 'n']
         self.equipment_dict = {}
