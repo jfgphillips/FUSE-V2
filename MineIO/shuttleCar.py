@@ -15,5 +15,4 @@ class shuttleCar_att(object):
 
 def qMachine(power=None, load=None, rating=None, usage=None, units=None):
     emissions = haulageVehicle(power, load, rating, usage, units)
-
     return emissions
