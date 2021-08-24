@@ -10,7 +10,7 @@ class SorbentSynthesis(object):
         self.RMM_H2O = Formula('H2O').mass
         self.RMM_HCl = Formula('HCl').mass
         self.RMM_LiCl = Formula('LiCl').mass
-        self.mass_sorbent_grams = self.chemicals.mass_sorbent_year * 10 ** 6
+        self.mass_sorbent_grams = uC.grams(self.chemicals.mass_sorbent_year)
         self.RMM_sorbent = ((self.chemicals.mol_ratio_LiCl * self.RMM_LiCl) +
                             (self.chemicals.mol_ratio_aluminium_hydroxide * self.RMM_aluminium_hydroxide) +
                             (self.chemicals.mol_ratio_H2O * self.RMM_H2O))
