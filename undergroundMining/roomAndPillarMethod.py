@@ -19,6 +19,7 @@ class roomAndPillarMethod:
                                         "roof bolter": self.df['value'].loc['roof bolter'],
                                         "shuttle car": self.df['value'].loc['shuttle car'],
                                         "worker": self.df['value'].loc['worker']}
+        self.mining_packages = self.df['value'].loc['mining packages']
         self.continuous_miner = continuousMiner.continuousMiner_att()
         self.roof_bolter = roofBolter.roofBolter_att()
         self.shuttle_car = shuttleCar.shuttleCar_att()
@@ -32,7 +33,7 @@ class roomAndPillarMethod:
         self.operating_per_week = self.mine.mining_operating / 2.173  # hours per week conversion
         self.required_tonnes_per_year = tL.taylors_law(self.mine.expected_reserves, self.mine.mining_operating)
         req_out_kwargs = {"required_tpy": self.required_tonnes_per_year,
-                          "mining_package": self.mine.mining_packages,
+                          "mining_package": self.mining_packages,
                           "conversion_efficiency": self.mine.conversion_efficiency,
                           "ore_grade": self.mine.ore_grade,
                           "production_hrs_wk": self.operating_per_week}
@@ -40,7 +41,7 @@ class roomAndPillarMethod:
         self.maintenance = self.mine.maintenance_usage
         self.units = 365  # year
         self.shuttle_load = 10  # tonnes
-        self.LHD_load = 5  # tonnes
+        self.LHD_load = 2  # tonnes
         self.emissions_df, self.total_emissions_df = self.package_emissions()
         self.opex_df, self.total_opex_df = self.opex()
         # print(self.emissions/self.required_tonnes_per_year * 365, "kWhrs/tonne")
@@ -51,7 +52,7 @@ class roomAndPillarMethod:
         total_emissions = self.total_emissions_df['sum'].loc['room and pillar method']
         total_opex = self.total_opex_df['sum'].loc['room and pillar method']
         print_emissions = f"the total emissions for a mine producing {self.required_tonnes_per_year} TPY in kWhrs is: {total_emissions}\n" \
-                          f"this was performed by {self.mine.mining_packages} mining packages\n" \
+                          f"this was performed by {self.mining_packages} mining packages\n" \
                           f"a mining package has an output of: {self.required_output} TPH consisted of: \n" \
                           f"{pprint.pformat(self.initiate_mining_package)} \n" \
                           f"The emissions per tonne of soda ash produced was: {total_emissions / self.required_tonnes_per_year * 365} kWhrs"
@@ -95,7 +96,7 @@ class roomAndPillarMethod:
                                           'transportation_emissions': [shuttle_car_emissions]},
                                            index=['room and pillar method'])
         mining_emissions_df['sum'] = mining_emissions_df.sum(axis=1)
-        total_emissions_df = mining_emissions_df.mul(self.mine.mining_packages)
+        total_emissions_df = mining_emissions_df.mul(self.mining_packages)
         # print(total_emissions_df)
         return mining_emissions_df, total_emissions_df
 
@@ -112,7 +113,7 @@ class roomAndPillarMethod:
                                      "chemical_costs": 0},
                                index=['room and pillar method'])
         opex_df['sum'] = opex_df.sum(axis=1)
-        total_opex_df = opex_df.mul(self.mine.mining_packages)
+        total_opex_df = opex_df.mul(self.mining_packages)
         return opex_df, total_opex_df
 
 
