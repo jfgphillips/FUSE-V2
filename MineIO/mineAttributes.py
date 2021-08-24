@@ -15,7 +15,6 @@ class mine_att(object):
         self.mining_operating = df['value'].loc["mining operating"]
         self.mining_usage = df['value'].loc["mining operating"]/df['value'].loc["period"]
         self.maintenance_usage = df['value'].loc['maintenance operating']/df['value'].loc['period']
-        self.mining_packages = df['value'].loc["mining packages"]
         self.conversion_efficiency = df['value'].loc['conversion efficiency']
         return
 
