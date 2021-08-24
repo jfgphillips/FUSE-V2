@@ -4,6 +4,7 @@ from Geothermal_extraction.LDH import LDH_energy
 from Geothermal_extraction.LDH import Reactant_flow
 from Geothermal_extraction.LDH import LDH_capex
 from Geothermal_extraction.LDH import SorbentSynthesis
+from calculators import unitConversions as uC
 
 
 class LDH_opex(object):
@@ -25,12 +26,12 @@ class LDH_opex(object):
     def __repr__(self):
 
         total_opex = self.opex_df['sum'].loc['Geothermal_LDH']
-        print_opex = f'The total opex to product {self.reactant_flow.LC_purification_product["pure Li2CO3"]} ' \
-                     f'kg battery grade lithium carbonate per year from a brine flow of ' \
+        print_opex = f'The total opex to product {uC.tonnes(self.reactant_flow.LC_purification_product["pure Li2CO3"])} ' \
+                     f'tonnes battery grade lithium carbonate per year from a brine flow of ' \
                      f'{self.plant.brine_flow_day} m^3 per day \nwith a LiCl concentration of ' \
                      f'{self.brine.Li_conc_brine} g/L are: {total_opex} $ \n' \
                      f'The costs per kg of lithium carbonate are: ' \
-                     f'{total_opex / self.reactant_flow.LC_purification_product["pure Li2CO3"]} $/kg'
+                     f'{total_opex / (self.reactant_flow.LC_purification_product["pure Li2CO3"] * 10**(-3))} $/kg'
 
         output = f"{print_opex}"
         return output
@@ -44,8 +45,8 @@ class LDH_opex(object):
         cost_chemicals = self.sor_syn.mass_LiOH_H2O * 10 ** (-3) * self.opex.cost_LiOH_H2O + \
                          self.sor_syn.mass_aluminium_hydroxide * 10**(-3) * self.opex.cost_aluminium_hydroxide +\
                          self.sor_syn.mass_HCl * 10 ** (-3) * self.opex.cost_HCl + \
-                         self.reactant_flow.LC_processing_reactants['Na2CO3'] * self.opex.cost_Na2CO3 + \
-                         self.reactant_flow.LC_purification_reactants['CO2'] * self.opex.cost_CO2_low
+                         self.reactant_flow.LC_processing_reactants['Na2CO3'] * 10**(-3) * self.opex.cost_Na2CO3 + \
+                         self.reactant_flow.LC_purification_reactants['CO2'] * 10**(-3) * self.opex.cost_CO2_low
 
         cost_water = self.water.total_water_usage * self.opex.cost_water
 
