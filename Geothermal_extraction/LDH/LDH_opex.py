@@ -33,7 +33,8 @@ class LDH_opex(object):
                      f'The costs per kg of lithium carbonate are: ' \
                      f'{total_opex / (self.reactant_flow.LC_purification_product["pure Li2CO3"] * 10**(-3))} $/kg'
 
-        output = f"{print_opex}"
+        output = f"{print_opex} \n"  \
+                 f"{self.opex_df['other']}"
         return output
 
     def CostsOpex(self):

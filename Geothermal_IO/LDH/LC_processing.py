@@ -41,7 +41,7 @@ def Li2CO3_reaction (LiCl=None, Yield=None):
     :param Yield: yield of the reaction
     :return: mass of (impure) Li2CO3 produced
     """
-    mol_LiCl = unitConversions.solidMass('LiCl', LiCl)
+    mol_LiCl = unitConversions.solidMol('LiCl', LiCl)
     mol_Na2CO3 = 0.5 * mol_LiCl
     mass_Na2CO3 = unitConversions.solidMass('Na2CO3', mol_Na2CO3)
     mol_Li2CO3 = 0.5 * mol_LiCl * Yield

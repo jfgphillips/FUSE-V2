@@ -18,7 +18,8 @@ class LDH_capex(object):
                       f'production plant to a already existing geothermal power plant are:\n' \
                       f'{self.TCI} $'
 
-        output = f"{print_capex}"
+        output = f"{print_capex}\n" \
+                 f"{self.FCC}"
         return output
 
     def Equipment_costs(self):
@@ -51,7 +52,8 @@ class LDH_capex(object):
         cost_EEM = self.capex.EEM * self.equipment_cost  # Electric Equipment and Control
         cost_buildings = self.capex.buildings * self.equipment_cost
         cost_service_facilities = self.capex.service_facilities * self.equipment_cost
-        depreciable_costs = cost_installation + cost_IC + cost_EEM + cost_buildings + cost_service_facilities
+        depreciable_costs = self.equipment_cost + cost_installation + cost_IC + cost_EEM + cost_buildings + \
+                            cost_service_facilities
 
         cost_land = self.capex.land * self.equipment_cost
         cost_FSI = self.capex.FSI * self.equipment_cost  # Facility Site Improvement

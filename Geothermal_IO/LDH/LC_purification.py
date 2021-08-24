@@ -50,13 +50,12 @@ def Purification_raction(Li2CO3_impure=None, CO2_excess=None, Yield_forward=None
     """
     Li2CO3_impure + H2O + CO2(excess) --> 2 LiHCO3
     2 LiH2O3 + heat --> Li2CO3(pure) + H2O + 2 CO2
-    :param Li2CO3_impure: impure LiCO2 from LiCO2 processing
+    :param Li2CO3_impure: impure LiCO3 from LiCO3 processing in g
     :param CO2_excess: excess of CO2 used in this reaction
     :param Yield: yield of the prufication process
     :return: amount of pure Li2CO3 produced
     """
-    Li2CO3_impure_grams = unitConversions.grams(Li2CO3_impure)
-    mol_Li2CO3_impure = unitConversions.solidMol('Li2CO3', Li2CO3_impure_grams)
+    mol_Li2CO3_impure = unitConversions.solidMol('Li2CO3', Li2CO3_impure)
     mol_H2O = mol_Li2CO3_impure
     mass_H2O = unitConversions.solidMass('H2O', mol_H2O)
     mol_CO2 = mol_Li2CO3_impure * CO2_excess
@@ -69,7 +68,7 @@ def Purification_raction(Li2CO3_impure=None, CO2_excess=None, Yield_forward=None
     mass_CO2_product = unitConversions.solidMass('CO2', mol_CO2_product)
     mol_H2O_product = mol_Li2CO3_impure * Yield_forward * Yield_backward
     mass_H2O_product = unitConversions.solidMass('H2O', mol_H2O_product)
-    reactants = {'impure Li2CO3': Li2CO3_impure_grams, 'H2O': mass_H2O, 'CO2': mass_CO2}  # in g
+    reactants = {'impure Li2CO3': Li2CO3_impure, 'H2O': mass_H2O, 'CO2': mass_CO2}  # in g
     intermediate = {'LiHCO3': mass_LiHCO3}  # in g
     product = {'pure Li2CO3': mass_Li2CO3_pure}  # in g
     by_products = {'CO2': mass_CO2_product, 'H2O': mass_H2O_product}  # in g
