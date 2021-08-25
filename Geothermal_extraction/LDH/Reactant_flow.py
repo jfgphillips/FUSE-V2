@@ -5,6 +5,7 @@ from Geothermal_IO.LDH import Brine
 from Geothermal_IO.LDH import Plant
 from Geothermal_IO.LDH import ForwardOsmosis
 from calculators import unitConversions as uC
+from molmass import Formula
 
 class ReactantFlow(object):
     def __init__(self):

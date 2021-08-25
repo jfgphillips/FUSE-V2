@@ -44,7 +44,7 @@ def batchReactor(reaction_temperature=None,
     P = liq_density  # kg/l
     mass_reactants = capacity * P  # kg
 
-    T = (reaction_temperature - 25) + 273.15  # kelvin
+    T = (reaction_temperature - 298.15)  # kelvin
     t = reaction_time  # hr
     A = surface_area  # m^2
     k = thermal_conductivity  # W/(m*K)

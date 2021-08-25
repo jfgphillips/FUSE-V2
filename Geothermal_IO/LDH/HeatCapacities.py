@@ -38,7 +38,7 @@ class HeatCapacities_att(object):
                                         'temp': self.temp_carbonation}
         hc_CO2_precipitation_kwargs = {'A': 24.99735, 'B': 55.18696, 'C': -33.69137, 'D': 7.948387, 'E': -0.136638,
                                      'temp': self.temp_precipitation}
-        self.hc_aluminium_hydroxide_kg = 1193  #J/(kg*K) source: Huang 2021  # J/[mol*K]
+        self.hc_aluminium_hydroxide_kg = 1193  #J/(kg*K) source: Huang 2021
         self.chemicals = Sor_Syn_Chemicals.SorbentSynthesisChemicals_att()
         self.hc_aluminium_hydroxide_mol = self.hc_aluminium_hydroxide_kg * (Formula('Al(OH)3').mass / 10**3)  # J/[mol*K]
         self.hc_LiOH = heatCapacities.Schomate_equation(**hc_LiOH_kwargs)  # J/[mol*K]
@@ -60,9 +60,10 @@ def hC_LC_purification(total_mass_mixture=None, mass_Li2CO3=None,  mass_H2O=None
     :param mass_H2O: in g
     :param Hc_Li2CO3: in J/[mol*K]
     :param Hc_H2O: in J/[mol*K]
-    :return: heat capacity of the Li2CO3 purification mixture in J/[mol*K]
+    :return: heat capacity of the Li2CO3 purification mixture in J/[kg*K]
     """
-    hC = ((mass_Li2CO3/total_mass_mixture) * (Hc_Li2CO3) + ((mass_H2O/total_mass_mixture) * Hc_H2O))
+    hC = ((mass_Li2CO3/total_mass_mixture) * (Hc_Li2CO3 / Formula('Li2CO3').mass * 10**3) +
+          ((mass_H2O/total_mass_mixture) * (Hc_H2O / Formula('H2O').mass * 10**3)))
     return hC
 
 

@@ -84,23 +84,23 @@ class LDH_energy(object):
                                           'density_CO2': self.densities.density_CO2,
                                           'density_H2O': self.densities.density_H2O}
         self.density_LC_purification = Densities_and_Tb.Density_LC_purification(**density_LC_purification_kwargs)
-        self.total_mass_drying_LC_purification = self.reactant_flow.LC_purification_by_products['H2O'] + \
+        self.total_mass_drying_LC_purification = self.LC_purification.mass_difference_evaporation + \
                                                  self.reactant_flow.LC_purification_product['pure Li2CO3']
         Tb_LC_purification_kwargs = {'total_mass_mixture': self.total_mass_drying_LC_purification,
-                                     'mass_Li2CO3': self.reactant_flow.LC_purification_reactants['impure Li2CO3'],
-                                     'mass_H2O': self.reactant_flow.LC_purification_reactants['H2O'],
+                                     'mass_Li2CO3': self.reactant_flow.LC_purification_product['pure Li2CO3'],
+                                     'mass_H2O': self.LC_purification.mass_difference_evaporation,
                                      'Tb_Li2CO3': self.densities.Tb_Li2CO3,
                                      'Tb_H2O': self.densities.Tb_H2O}
         self.Tb_LC_purification = Densities_and_Tb.Tb_LC_purification(**Tb_LC_purification_kwargs)
         hC_LC_purification_kwargs = {'total_mass_mixture': self.total_mass_drying_LC_purification,
-                                     'mass_Li2CO3': self.reactant_flow.LC_purification_reactants['impure Li2CO3'],
-                                     'mass_H2O': self.reactant_flow.LC_purification_reactants['H2O'],
+                                     'mass_Li2CO3': self.reactant_flow.LC_purification_product['pure Li2CO3'],
+                                     'mass_H2O': self.LC_purification.mass_difference_evaporation,
                                      'Hc_Li2CO3': self.hC.hc_Li2CO3_precipitation,
                                      'Hc_H2O': self.hC.hc_H2O}
         self.hC_LC_purification = HeatCapacities.hC_LC_purification(**hC_LC_purification_kwargs)
         Hvap_LC_purification_kwargs = {'total_mass_mixture': self.total_mass_drying_LC_purification,
                                        'mass_Li2CO3': self.reactant_flow.LC_purification_reactants['impure Li2CO3'],
-                                       'mass_H2O': self.reactant_flow.LC_purification_reactants['H2O'],
+                                       'mass_H2O': self.LC_purification.mass_difference_evaporation,
                                        'Hvap_Li2CO3': self.HV.Hvap_Li2CO3,
                                        'Hvap_H2O': self.HV.Hvap_H2O}
         self.Hvap_LC_purification = HeatVaporization.Hvap_LC_purification(**Hvap_LC_purification_kwargs)
@@ -120,7 +120,6 @@ class LDH_energy(object):
                           f'kWh/kg'
 
         output = f"{print_emissions}"
-
         return output
 
 
@@ -159,8 +158,8 @@ class LDH_energy(object):
         req_stir_energy_sor_syn_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
                                           'impeller_diameter': self.impeller.impeller_diameter,
                                           'agitator_rotational_speed': self.impeller.agitator_rotational_speed,
-                                          'density_1': self.density_1 * 10**(-3),
-                                          'density_2': self.density_2 * 10**(-3),
+                                          'density_1': self.density_1 * 10**3,
+                                          'density_2': self.density_2 * 10**3,
                                           'stirring_time_1': self.reactor.reaction_time_1 * 3600,
                                           'stirring_time_2': self.reactor.reaction_time_2 * 3600,
                                           'efficiency': self.impeller.efficiency}
@@ -177,7 +176,7 @@ class LDH_energy(object):
         req_stir_energy_column_washing_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
                                                  'impeller_diameter': self.impeller.impeller_diameter,
                                                  'agitator_rotational_speed': self.impeller.agitator_rotational_speed,
-                                                 'density': self.density_NaCl_washing * 10 ** (-3),
+                                                 'density': self.density_NaCl_washing * 10 ** 3,
                                                  'stirring_time': self.washing.stirring_time * 3600,
                                                  'efficiency': self.impeller.efficiency}
         stirring_energy_column_washing = uC.kiloWattHours\
@@ -228,7 +227,7 @@ class LDH_energy(object):
         req_stir_energy_LC_processing_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
                                                 'impeller_diameter': self.impeller.impeller_diameter,
                                                 'agitator_rotational_speed': self.impeller.agitator_rotational_speed,
-                                                'density': self.density_LC_processing * 10**(-3),
+                                                'density': self.density_LC_processing * 10**3,
                                                 'stirring_time': self.LC_processing.reaction_time * 3600,
                                                 'efficiency': self.impeller.efficiency}
 
@@ -271,7 +270,7 @@ class LDH_energy(object):
         req_stir_energy_carbonation_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
                                               'impeller_diameter': self.impeller.impeller_diameter,
                                               'agitator_rotational_speed': self.impeller.agitator_rotational_speed,
-                                              'density': self.density_LC_purification * 10**(-3),
+                                              'density': self.density_LC_purification * 10**3,
                                               'stirring_time': self.LC_purification.carbonation_time * 3600,
                                               'efficiency': self.impeller.efficiency}
 
@@ -317,7 +316,7 @@ class LDH_energy(object):
         req_stir_energy_precipitation_kwargs = {'impeller_power_number': self.impeller.impeller_power_number,
                                                 'impeller_diameter': self.impeller.impeller_diameter,
                                                 'agitator_rotational_speed': self.impeller.agitator_rotational_speed,
-                                                'density': self.density_LC_purification * 10**(-3),
+                                                'density': self.density_LC_purification * 10**3,
                                                 'stirring_time': self.LC_purification.precipitation_time * 3600,
                                                 'efficiency': self.impeller.efficiency}
 
@@ -328,7 +327,7 @@ class LDH_energy(object):
             (uC.tonnes(self.reactant_flow.LC_purification_intermediate['LiHCO3']))
 
         req_drying_energy_LC_processing_kwargs = {'heat_capacity_solution': self.hC_LC_purification,
-                                                  'mass_solution': self.total_mass_drying_LC_purification,
+                                                  'mass_solution': self.total_mass_drying_LC_purification * 10**(-3),
                                                   'boiling_temperature': self.Tb_LC_purification,
                                                   'starting_temperature': self.LC_purification.washing_temperature,
                                                   'evaporation_enthalpy': self.Hvap_LC_purification,
@@ -357,7 +356,7 @@ class LDH_energy(object):
                                        "Processing energy": [filtration_energy_sor_syn + filtration_energy_FO +
                                                              filtration_energy_LC_processing +
                                                              filtration_energy_carbonation +
-                                                             filtration_energy_precipitation+ grinding_energy_sor_syn +
+                                                             filtration_energy_precipitation + grinding_energy_sor_syn +
                                                              drying_energy_LC_purification],
                                        "Transportation energy": [pumping_energy_sor_syn +
                                                                  pumping_energy_column_extraction +
