@@ -34,7 +34,7 @@ class LDH_opex(object):
                      f'{total_opex / (self.reactant_flow.LC_purification_product["pure Li2CO3"] * 10**(-3))} $/kg'
 
         output = f"{print_opex} \n"  \
-                 f"{self.opex_df['other']}"
+                 f"{self.reactant_flow.LC_purification_product['pure Li2CO3']}"
         return output
 
     def CostsOpex(self):
@@ -68,7 +68,7 @@ class LDH_opex(object):
                                                       cost_quality_control + cost_maintenance_labour +
                                                       cost_maintenance_material + cost_operating_supplies)
 
-        direct_costs = materials_cost + cost_operating_labour + cost_operating_supervision +  cost_quality_control + \
+        direct_costs = materials_cost + cost_operating_labour + cost_operating_supervision + cost_quality_control + \
                        cost_maintenance_labour + cost_maintenance_material + cost_operating_supplies + cost_contingency
 
         cost_property_taxes = self.opex.property_taxes * self.capex.FCC

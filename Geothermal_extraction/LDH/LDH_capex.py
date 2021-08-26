@@ -18,8 +18,7 @@ class LDH_capex(object):
                       f'production plant to a already existing geothermal power plant are:\n' \
                       f'{self.TCI} $'
 
-        output = f"{print_capex}\n" \
-                 f"{self.FCC}"
+        output = f"{print_capex}"
         return output
 
     def Equipment_costs(self):

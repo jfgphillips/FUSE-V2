@@ -27,15 +27,15 @@ def beltConveyor(motor_kW=None, utilisation_factor=None, op_units=None):
 def beltConveyor_requirement(belt_speed=None, belt_length=None, gradient=None, conveyor_output=None, drive_train_efficiency=None):
     """
     credit for this calculation: hard rock miners handbook
-    might be an idea to standardise units across the process
+    Function to calculate the power requirements of a belt conveyor (output in kW)
 
-    :param belt_speed: speed of belt meters per minute
-    :param belt_length: length of belt in meters
-    :param gradient: slope of the conveyor
-    :param conveyor_output: conveyor output tonnes per hour
-    :param drive_train_efficiency: efficiency of the drive train
+    :param belt_speed: float for speed of belt, units: m/min
+    :param belt_length: float for length of belt, units: m
+    :param gradient: float for slope of the conveyor with + 0-100 for uphill and - 0-100 for downhill , units %
+    :param conveyor_output: float for conveyor output, units: t/hrs
+    :param drive_train_efficiency: float for efficiency of the drive train 0-1 (representing 0-100%), unitless
 
-    :return: drive power requirements for belt conveyor
+    :return: drive power requirements for belt conveyor in kW
     """
 
     """
@@ -45,11 +45,21 @@ def beltConveyor_requirement(belt_speed=None, belt_length=None, gradient=None, c
         H_f = belt_df[column].loc[belt_speed]
     """
 
-    def speed_convertor(blt_speed):
-        foot_per_minute = blt_speed * 3.28084
+    def speed_convertor(belt_speed):
+        """
+        Function to convert belt speed input of m/min into feet/min
+        :param belt_speed: float for speed of belt, units: m/min
+        :return: float for speed of belt, units: f/min
+        """
+        foot_per_minute = belt_speed * 3.28084
         return foot_per_minute
 
     def length_converter(belt_length):
+        """
+        Function to convert belt length input of meters into feet
+        :param belt_length: float for length of belt, units: m
+        :return: float for length of belt, units: feet
+        """
         footage = belt_length * 3.28084
         return footage
 

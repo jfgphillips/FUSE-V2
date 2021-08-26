@@ -185,19 +185,18 @@ class LDH_energy(object):
         # assuming the brine has the density of water
 
         pumping_energy_column_extraction = uC.kiloWattHours(QProcesses.pumping_energy
-                                                            (((self.plant.brine_flow_day / 24) *
-                                                             self.plant.plant_uptime) +
+                                                            (uC.tonnes(((self.plant.brine_flow_day * 10**6 / 24) *
+                                                             self.plant.plant_uptime) * self.brine.brine_density) +
                                                              ((self.washing.H2O_washing_total +
                                                                self.stripping.H2O_stripping_total) * 10**3) +
-                                                             self.washing.total_mass_NaCl))
+                                                             uC.tonnes(self.washing.total_mass_NaCl)))
 
-        pumping_energy_effluent = uC.kiloWattHours(QProcesses.pumping_energy(((self.plant.brine_flow_day / 24) *
-                                                   self.plant.plant_uptime) +
-                                                   (uC.tonnes((self.washing.H2O_washing_total +
-                                                               self.stripping.H2O_stripping_total) * 10**3 +
-                                                              self.washing.total_mass_NaCl -
-                                                              self.stripping.LiCl_sol_output * 10**3 *
-                                                              self.density_LiCl_sol_stripping))))
+        pumping_energy_effluent = uC.kiloWattHours\
+            (QProcesses.pumping_energy(uC.tonnes(((self.plant.brine_flow_day * 10**6 / 24) *
+                                                  self.plant.plant_uptime * self.brine.brine_density) +
+                                                 (self.washing.H2O_washing_total + self.stripping.H2O_stripping_total) *
+                                                 10**3 + self.washing.total_mass_NaCl - self.stripping.LiCl_sol_output *
+                                                 10**3 * self.density_LiCl_sol_stripping)))
 
         filtration_energy_FO = QProcesses.filtration_energy(self.FO.LiCl_sol_output * 10**(-3))
 
@@ -345,8 +344,10 @@ class LDH_energy(object):
         pumping_energy_LC_purification_wash = uC.kiloWattHours(QProcesses.pumping_energy
                                                                (uC.tonnes(self.water.LC_purification_washing)))
 
-        belt_conveyor_energy_average = QMachines.beltConveyor(self.BC.belt_speed, self.BC.belt_length, self.BC.gradient,
-                                                              self.BC.output, self.BC.efficiency)
+        req_belt_conveyor_kwargs = {'belt_speed': self.BC.belt_speed, 'belt_length': self.BC.belt_length,
+                                    'gradient': self.BC.gradient, 'conveyor_output': self.BC.output,
+                                    'drive_train_efficiency': self.BC.efficiency}
+        belt_conveyor_energy_average = QMachines.beltConveyor_requirement(**req_belt_conveyor_kwargs)
 
         energy_df = pd.DataFrame(data={"Reaction energy": [q_reaction_sor_syn + q_reaction_LC_processing +
                                                            q_reaction_LC_carbonation + q_reaction_LC_precipitation +
