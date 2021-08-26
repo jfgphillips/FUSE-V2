@@ -85,9 +85,10 @@ class longwallMethod:
                                                     self.shuttle_car.nameplate_rating,
                                                     self.usage_factor,
                                                     self.units) * self.initiate_mining_package['shuttle car']
-        # miscSupportEqmt.afc_att.qMachine(self.afc_drive.drive_power) * self.initiate_mining_package['afc drive']  #
-        # TODO: finish this
-        afc_emissions = 0
+        # TODO: check the validity of this
+        afc_emissions = miscSupportEqmt.afc_att.qMachine(0, self.afc_drive.drive_power,
+                                                         self.usage_factor,
+                                                         self.units) * self.initiate_mining_package['afc drive']
 
         stageLoader_emissions = stageLoader.qMachine(self.stageLoader.power,
                                                      self.required_output,

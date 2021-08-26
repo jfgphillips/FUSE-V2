@@ -18,26 +18,54 @@ def haulageVehicle(motor_kW=None, running_load=None, nameplate_rating=None, util
 
     return unit_energy_consumption
 
+def beltConveyor(motor_kW=None, utilisation_factor=None, op_units=None):
 
-def beltConveyor(belt_speed, belt_length, gradient, conveyor_output, drive_train_efficiency):
+    unit_energy_consumption = motor_kW * utilisation_factor * op_units
+    return unit_energy_consumption
+
+
+def beltConveyor_requirement(belt_speed=None, belt_length=None, gradient=None, conveyor_output=None, drive_train_efficiency=None):
     """
-    credit for this calculation: hard rock mininers handbook
+    credit for this calculation: hard rock miners handbook
     might be an idea to standardise units across the process
 
-    :param belt_speed: speed of belt feet per minute
-    :param belt_length: length of belt in feet
+    :param belt_speed: speed of belt meters per minute
+    :param belt_length: length of belt in meters
     :param gradient: slope of the conveyor
     :param conveyor_output: conveyor output tonnes per hour
     :param drive_train_efficiency: efficiency of the drive train
 
     :return: drive power requirements for belt conveyor
     """
-    belt_df = pd.read_csv('../../data/equivalent_lift_matrix.csv')
-    belt_df.set_index('belt speed feet per minute', inplace=True)
 
-    column = str(belt_length)
+    """
+        belt_df = pd.read_csv('../../data/equivalent_lift_matrix.csv')
+        belt_df.set_index('belt speed feet per minute', inplace=True)
+        column = str(belt_length)
+        H_f = belt_df[column].loc[belt_speed]
+    """
 
-    H_f = belt_df[column].loc[belt_speed]
+    def speed_convertor(blt_speed):
+        foot_per_minute = blt_speed * 3.28084
+        return foot_per_minute
+
+    def length_converter(belt_length):
+        footage = belt_length * 3.28084
+        return footage
+
+    foot_per_min = speed_convertor(belt_speed)
+    feet = length_converter(belt_length)
+
+    if foot_per_min <= 100:
+        H_f = 7.58813 + 0.04957*feet - 1.46623e-5*(feet**2) + 2.54432e-9*(feet**3)
+    elif 200 >= foot_per_min > 100:
+        H_f = 8.41089 + 0.05524*feet - 1.63515e-5*(feet**2) + 2.83452e-9*(feet**3)
+    elif 300 >= foot_per_min > 200:
+        H_f = 10.04759 + 0.06634*feet - 1.96818e-5*(feet**2) + 3.41284e-9*(feet**3)
+    elif 400 >= foot_per_min > 300:
+        H_f = 11.7842 + 0.07739*feet - 2.28826e-5*(feet**2) + 3.96428e-9*(feet**3)
+    else:
+        H_f = 13.43053 + 0.08901*feet - 2.64782e-5*(feet*2) + 4.59918e-9*(feet*3)
 
     Q = conveyor_output * 36.7434  # tonne per hour conv to pounds per min
     H_g = gradient * 10  # gradient given as a percentage * 10 for some reason

@@ -12,10 +12,11 @@ class afc_att:
         self.drive_power = df['value'].loc['drive_power']
         self.model = df['value'].loc['model']
         self.workers = df['value'].loc['workers']
+        self.conveyor_length = df['value'].loc['conveyor_length']
 
 
-    def qMachine(self): # TODO: extrapolate belt speed from the mine output
-        energyConsumption = beltConveyor()
+    def qMachine(self, power, usage, units): # TODO: extrapolate belt speed from the mine output
+        energyConsumption = beltConveyor(power, usage, units)
         return energyConsumption
 
 
