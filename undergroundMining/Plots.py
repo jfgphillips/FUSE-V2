@@ -9,8 +9,8 @@ class plot:
         self.rpm_data = rpm()
         self.lwm_data = lwm()
         self.emissions_data = pd.concat([self.rpm_data.total_emissions_df, self.lwm_data.total_emissions_df], axis=0)
-        self.opex_data = pd.concat([self.rpm_data.total_opex_df, self.lwm_data.total_opex_df], axis=0)
-        self.standardised_opex_data = self.opex_data.div(self.rpm_data.required_tonnes_per_year).mul(365)
+        self.opex_data = pd.concat([self.rpm_data.opex_df, self.lwm_data.opex_df], axis=0)
+        self.standardised_opex_data = self.opex_data
         self.standardised_emissions_data = self.emissions_data.div(self.rpm_data.required_tonnes_per_year).mul(365)
         self.emissions_boxplot()
         self.opex_boxplot()

@@ -4,6 +4,7 @@ from calculators import machine_output
 from calculators import taylorsLaw as tL
 import pandas as pd
 import pprint
+from calculators.miningCostModels import block_caving_shaft_entry
 
 
 class longwallMethod:
@@ -32,33 +33,39 @@ class longwallMethod:
 
         self.usage_factor = self.mine.mining_usage
         self.operating_per_week = self.mine.mining_operating / 2.173  # hours per week conversion
-        self.required_tonnes_per_year = tL.taylors_law(self.mine.expected_reserves, self.mine.mining_operating)
+        self.required_tonnes_per_year = tL.taylors_law(self.mine.expected_reserves,
+                                                       self.mine.mining_operating)  # soda ash
         # print(self.required_tonnes_per_year)
         req_out_kwargs = {"required_tpy": self.required_tonnes_per_year,
                           "mining_package": self.mining_packages,
                           "conversion_efficiency": self.mine.conversion_efficiency,
                           "ore_grade": self.mine.ore_grade,
                           "production_hrs_wk": self.operating_per_week}
-        self.required_output = machine_output.machine_output_calc(**req_out_kwargs)
+        self.required_output = machine_output.machine_output_calc(**req_out_kwargs)  # ore and rock tonnes
+        self.ex_output_args = (
+                                          self.required_output * self.operating_per_week * self.mining_packages * self.mine.conversion_efficiency) / 7
         self.maintenance = self.mine.maintenance_usage
         self.units = 365  # year
         self.shuttle_load = 10  # tonnes
         # self.LHD_load = 5  # tonnes
         self.emissions_df, self.total_emissions_df = self.package_emissions()
-        self.opex_df, self.total_opex_df = self.opex()
+
+        self.opex_df, self.capex_df = block_caving_shaft_entry(self.ex_output_args,
+                                                               "longwall method")
+        # self.opex_df, self.total_opex_df = self.opex()
         return
 
     def __repr__(self):
         total_emissions = self.total_emissions_df['sum'].loc['longwall method']
-        total_opex = self.total_opex_df['sum'].loc['longwall method']
+        total_opex = self.opex_df['total opex'].loc['longwall method']
         print_emissions = f"the total emissions for a mine producing {self.required_tonnes_per_year} TPY in kWhrs is: {total_emissions}\n" \
                           f"this was performed by {self.mining_packages} mining packages\n" \
                           f"a mining package has an output of: {self.required_output} TPH consisted of: \n" \
                           f"{pprint.pformat(self.initiate_mining_package)} \n" \
                           f"The emissions per tonne of soda ash produced was: {total_emissions / self.required_tonnes_per_year * 365} kWhrs"
 
-        print_opex = f"The total operating expenses for this mine was: £{total_opex} \n" \
-                     f"The cost per tonne of soda ash was: £{total_opex / self.required_tonnes_per_year * 365}"
+        print_opex = f"The total operating expenses for this mine was: £{(total_opex * self.required_tonnes_per_year) / 365} \n" \
+                     f"The cost per tonne of soda ash was: £{total_opex}"
 
         output = f"{print_emissions}\n\n" \
                  f"{print_opex}"

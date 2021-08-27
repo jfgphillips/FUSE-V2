@@ -19,6 +19,13 @@ def haulageVehicle(motor_kW=None, running_load=None, nameplate_rating=None, util
     return unit_energy_consumption
 
 def beltConveyor(motor_kW=None, utilisation_factor=None, op_units=None):
+    """
+    Function deals with energy consumption of a belt conveyor
+    :param motor_kW: integer for the motor units: kW
+    :param utilisation_factor: float 0-1 for utilisation factor: unitless
+    :param op_units: integer a unit of time for the unit energy consumption, default = yrs
+    :return unit_energy_consumption: float units kWhrs/yr
+    """
 
     unit_energy_consumption = motor_kW * utilisation_factor * op_units
     return unit_energy_consumption
