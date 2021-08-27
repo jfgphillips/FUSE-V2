@@ -1,4 +1,5 @@
 
-class centrifuge:
+class clarifier:
     def __init__(self):
         return
+

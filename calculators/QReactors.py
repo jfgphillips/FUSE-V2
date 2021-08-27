@@ -92,5 +92,9 @@ def CSTR():  # TODO: implement this using: https://en.wikipedia.org/wiki/Continu
 
     return np.nan
 
+def centrifuge(power_kw, time):
+    power_consumption = power_kw * time
+    return power_consumption
+
 
 
