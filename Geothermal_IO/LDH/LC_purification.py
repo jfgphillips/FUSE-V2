@@ -19,9 +19,9 @@ class LiCarbonatePurification_att(object):
         self.thermal_conductivity = self.df['value'].loc['thermal_conductivity_reactor']
         self.wall_thickness = self.df['value'].loc['wall_thickness']
         self.surface_area = self.df['value'].loc['surface_area']
-        self.mass_difference_evaporation = self.df['value'].loc['mass_difference_evaporation']
         self.dryer_efficiency = self.df['value'].loc['dryer_efficiency']
         self.washing_temperature = self.df['value'].loc['washing_temperature']
+        self.water_content_filtration = self.df['value'].loc['water_content_filtration']
         return
 
 

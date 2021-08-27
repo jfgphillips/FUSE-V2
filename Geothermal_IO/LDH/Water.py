@@ -27,7 +27,7 @@ class Water_att(object):
                                  self.LC_purification_washing * \
                                  self.reactant_flow.LC_purification_product['pure Li2CO3'] + self.LC_processing_aq * \
                                  self.reactant_flow.LC_processing_reactants['Na2CO3'] + \
-                                 self.washing.H2O_washing_total + self.stripping.H2O_stripping_total)
+                                 self.washing.H2O_washing + self.stripping.H2O_stripping)
 
         return
 

@@ -10,6 +10,7 @@ class BeltConveyor_att(object):
         self.gradient = self.df['value'].loc['gradient']
         self.output = self.df['value'].loc['output']
         self.efficiency = self.df['value'].loc['efficiency']
+        self.hours_operation = self.df['value'].loc['hours_operation']
         return
 
 if __name__ == '__main__':
