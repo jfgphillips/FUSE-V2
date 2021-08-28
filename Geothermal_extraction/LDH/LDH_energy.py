@@ -48,20 +48,20 @@ class LDH_energy(object):
                                        'density_H2O': self.densities.density_H2O,
                                        'density_NaCl': self.densities.density_NaCl}
         self.density_NaCl_washing = Densities_and_Tb.Density_NaCl_sol(**density_NaCl_washing_kwargs)
-        self.total_mass_LiCl_sol_stripping = self.stripping.LiCl_sol_output * 10**3 + \
-                                             (self.stripping.LiCl_conc_stripping * self.stripping.LiCl_sol_output)
+        self.total_mass_LiCl_sol_stripping = self.stripping.Li_sol_output * 10**3 + \
+                                             (self.stripping.LiCl_conc_stripping * self.stripping.Li_sol_output)
         density_LiCl_sol_stripping_kwargs = {'total_mass_mixture': self.total_mass_LiCl_sol_stripping,
-                                             'mass_H2O': self.stripping.LiCl_sol_output * 10**3,
+                                             'mass_H2O': self.stripping.Li_sol_output * 10**3,
                                              'mass_LiCl': self.stripping.LiCl_conc_stripping *
-                                                          self.stripping.LiCl_sol_output,
+                                                          self.stripping.Li_sol_output,
                                              'density_H2O': self.densities.density_H2O,
                                              'density_LiCl': self.densities.density_LiCl}
         self.density_LiCl_sol_stripping = Densities_and_Tb.Density_LiCl_sol(**density_LiCl_sol_stripping_kwargs)
-        self.total_mass_LiCl_sol_FO = self.FO.LiCl_sol_output * 10 ** 3 + \
-                                      (self.FO.LiCl_conc_FO * self.FO.LiCl_sol_output)
+        self.total_mass_LiCl_sol_FO = self.FO.Li_sol_output * 10 ** 3 + \
+                                      (self.FO.LiCl_conc_FO * self.FO.Li_sol_output)
         density_LiCl_sol_FO_kwargs = {'total_mass_mixture': self.total_mass_LiCl_sol_stripping,
-                                      'mass_H2O': self.FO.LiCl_sol_output * 10 ** 3,
-                                      'mass_LiCl': self.FO.LiCl_conc_FO * self.FO.LiCl_sol_output,
+                                      'mass_H2O': self.FO.Li_sol_output * 10 ** 3,
+                                      'mass_LiCl': self.FO.LiCl_conc_FO * self.FO.Li_sol_output,
                                       'density_H2O': self.densities.density_H2O,
                                       'density_LiCl': self.densities.density_LiCl}
         self.density_LiCl_sol_FO = Densities_and_Tb.Density_LiCl_sol(**density_LiCl_sol_FO_kwargs)
@@ -199,12 +199,12 @@ class LDH_energy(object):
             (QProcesses.pumping_energy(uC.tonnes(((self.plant.brine_flow_day * 10**6 / 24) *
                                                   self.plant.plant_uptime * self.brine.brine_density) +
                                                  (self.washing.H2O_washing + self.stripping.H2O_stripping) *
-                                                 10**3 + self.washing.mass_NaCl - self.stripping.LiCl_sol_output *
+                                                 10**3 + self.washing.mass_NaCl - self.stripping.Li_sol_output *
                                                  10**3 * self.density_LiCl_sol_stripping)))
 
-        filtration_energy_FO = QProcesses.filtration_energy(self.FO.LiCl_sol_output * 10**(-3))
+        filtration_energy_FO = QProcesses.filtration_energy(self.FO.Li_sol_output * 10**(-3))
 
-        pumping_energy_FO = uC.kiloWattHours(QProcesses.pumping_energy(uC.tonnes(self.stripping.LiCl_sol_output *
+        pumping_energy_FO = uC.kiloWattHours(QProcesses.pumping_energy(uC.tonnes(self.stripping.Li_sol_output *
                                              10**3 * self.density_LiCl_sol_stripping)))
 
         req_reactants_LC_processing_kwargs = {'mol_LiCl': uC.solidMol
@@ -242,7 +242,7 @@ class LDH_energy(object):
                        self.reactant_flow.LC_processing_reactants['Na2CO3']))
 
         pumping_energy_LC_processing = uC.kiloWattHours(QProcesses.pumping_energy
-                                                        (uC.tonnes(self.FO.LiCl_sol_output * 10**3 +
+                                                        (uC.tonnes(self.FO.Li_sol_output * 10**3 +
                                                          self.density_LiCl_sol_FO +
                                                          self.reactant_flow.LC_processing_reactants['Na2CO3'])))
 
@@ -334,9 +334,9 @@ class LDH_energy(object):
                                                   'boiling_temperature': self.Tb_LC_purification,
                                                   'starting_temperature': self.LC_purification.washing_temperature,
                                                   'evaporation_enthalpy': self.Hvap_LC_purification,
-                                                  'mass_vapour': self.LC_purification.water_content_filtration *
+                                                  'mass_vapour': (self.LC_purification.water_content_filtration *
                                                                  self.reactant_flow.LC_purification_product
-                                                                 ['pure Li2CO3'] * 10**(-3)}
+                                                                 ['pure Li2CO3']) * 10**(-3)}
 
         drying_energy_LC_purification = uC.kiloWattHours(QProcesses.drying_energy
                                                          (**req_drying_energy_LC_processing_kwargs))

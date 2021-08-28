@@ -87,12 +87,12 @@ class LDH_opex(object):
         opex_df = pd.DataFrame(data={"chemical_costs": [cost_chemicals],
                                      "utility_costs": [cost_electricity + cost_water],
                                      "labour_costs": [cost_operating_labour + cost_operating_supervision +
-                                                      cost_quality_control + cost_maintenance_labour +
-                                                      cost_maintenance_labour],
+                                                      cost_quality_control + cost_maintenance_labour],
                                      "other": [cost_maintenance_material + cost_operating_supplies + cost_contingency +
                                                indirect_costs + general_costs]},
                                index=['Geothermal_LDH'])
         opex_df['sum'] = opex_df.sum(axis=1)
+
         return opex_df
 
 
