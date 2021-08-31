@@ -22,6 +22,7 @@ class EnergyPlot(object):
     def energy_boxplot(self):
         fields = ['Reaction energy', 'Processing energy', 'Transportation energy']
         colours = ['#88CCEE', '#CC6677', '#DDCC77']
+        labels = ['Reaction', 'Processing', 'Transportation']
         # print(self.energy_data[""])
 
         myplot = self.energy_data.plot(use_index=True,
@@ -32,7 +33,7 @@ class EnergyPlot(object):
         myplot.set_ylabel('Energy (kWh/tonne)')
         plt.title('Extraction technique')
         plt.xticks(rotation=0)
-        plt.legend(loc=0)
+        plt.legend(labels, loc='upper right')
         plt.show()
         return
 
@@ -50,7 +51,7 @@ class EnergyPlot(object):
         myplot.set_ylabel('Opex ($/tonne)')
         plt.title('Extraction technique')
         plt.xticks(rotation=0)
-        plt.legend(labels)
+        plt.legend(labels, loc='upper right')
         plt.show()
         return
 
