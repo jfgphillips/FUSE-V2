@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from Geothermal_extraction.LDH.LDH_energy import LDH_energy
-from Geothermal_extraction.LDH.LDH_opex import LDH_opex
+from Geothermal_extraction.LDH import LDH_opex
 from Geothermal_extraction.LDH import Reactant_flow
 from Geothermal_extraction.LDH import LDH_capex
 from calculators import unitConversions as uC
@@ -11,7 +11,7 @@ class EnergyPlot(object):
         self.energy = LDH_energy()
         self.rf = Reactant_flow.ReactantFlow()
         self.energy_data = self.energy.energy_df / uC.tonnes(self.rf.LC_purification_product['pure Li2CO3'])  # energy in kWh/t
-        self.opex = LDH_opex()
+        self.opex = LDH_opex.LDH_opex()
         self.opex_data = self.opex.opex_df / uC.tonnes(self.rf.LC_purification_product['pure Li2CO3'])  # costs in $/t
         self.LDH_capex = LDH_capex.LDH_capex()
         self.capex_dict = pd.DataFrame.from_dict(self.LDH_capex.equipment_cost_df)
@@ -38,9 +38,9 @@ class EnergyPlot(object):
 
 
     def opex_boxplot(self):
-        fields = ['chemical_costs', 'utility_costs', 'labour_costs', 'other' ]
+        fields = ['chemical_costs', 'utility_costs', 'labour_costs', 'other']
         colours = ['#88CCEE', '#CC6677', '#DDCC77', '#78EA6C']
-        labels = ['chemicals', 'utility', 'labour', 'other']
+        labels = ['Chemicals', 'Utility', 'Labour', 'Other']
 
         myplot = self.opex_data.plot(use_index=True,
                                      kind="bar",

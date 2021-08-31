@@ -33,8 +33,7 @@ class LDH_opex(object):
                      f'The costs per kg of lithium carbonate are: ' \
                      f'{total_opex / (self.reactant_flow.LC_purification_product["pure Li2CO3"] * 10**(-3))} $/kg'
 
-        output = f"{print_opex} \n"  \
-                 f"{self.reactant_flow.LC_purification_product['pure Li2CO3']}"
+        output = f"{print_opex}"
         return output
 
     def CostsOpex(self):
@@ -56,14 +55,15 @@ class LDH_opex(object):
         materials_cost = cost_chemicals + cost_water + cost_electricity
 
         # source: Huang 2021
+        cost_FCC = float(self.capex.FCC)
+        cost_TCI = float(self.capex.TCI)
         cost_operating_labour = self.worker.no_operators * self.worker.annual_wage
         cost_operating_supervision = self.worker.supervision * cost_operating_labour
         cost_quality_control = self.worker.quality_control * cost_operating_labour
-        cost_maintenance_labour = self.worker.maintenance_labour * self.capex.FCC
-
-        cost_maintenance_material = self.opex.maintenance_material * self.capex.FCC
-        cost_operating_supplies = self.opex.operating_supplies * self.capex.FCC
-        cost_contingency = self.opex.contingency_1 * (materials_cost) + \
+        cost_maintenance_labour = self.worker.maintenance_labour * cost_FCC
+        cost_maintenance_material = self.opex.maintenance_material * cost_FCC
+        cost_operating_supplies = self.opex.operating_supplies * cost_FCC
+        cost_contingency = self.opex.contingency_1 * materials_cost + \
                            self.opex.contingency_2 * (cost_operating_labour + cost_operating_supervision +
                                                       cost_quality_control + cost_maintenance_labour +
                                                       cost_maintenance_material + cost_operating_supplies)
@@ -71,18 +71,17 @@ class LDH_opex(object):
         direct_costs = materials_cost + cost_operating_labour + cost_operating_supervision + cost_quality_control + \
                        cost_maintenance_labour + cost_maintenance_material + cost_operating_supplies + cost_contingency
 
-        cost_property_taxes = self.opex.property_taxes * self.capex.FCC
-        cost_insurance = self.opex.insurance * self.capex.FCC
+        cost_property_taxes = self.opex.property_taxes * cost_FCC
+        cost_insurance = self.opex.insurance * cost_FCC
         cost_fringe_benefits = self.opex.fringe_benefits * (cost_operating_labour + cost_operating_supervision)
         cost_overhead = self.opex.overhead * (cost_operating_labour + cost_operating_supervision)
         indirect_costs = cost_property_taxes + cost_insurance + cost_fringe_benefits + cost_overhead
 
         cost_admin = self.opex.admin * (direct_costs + indirect_costs)
         cost_marketing = self.opex.marketing * (direct_costs + indirect_costs)
-        cost_financing = self.opex.financing * self.capex.TCI
+        cost_financing = self.opex.financing * cost_TCI
         cost_R_D = self.opex.R_D * (direct_costs + indirect_costs)
         general_costs = cost_admin + cost_marketing + cost_financing + cost_R_D
-
 
         opex_df = pd.DataFrame(data={"chemical_costs": [cost_chemicals],
                                      "utility_costs": [cost_electricity + cost_water],
